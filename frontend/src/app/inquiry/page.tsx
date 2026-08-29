@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Send, Building2, User, Phone, CheckCircle2 } from "lucide-react";
+import { Send, Building2, User, Phone, CheckCircle2, Loader2 } from "lucide-react";
 
 export default function InquiryPage() {
   const searchParams = useSearchParams();

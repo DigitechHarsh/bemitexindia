@@ -24,12 +24,7 @@ export default function Footer() {
               Direct from Factory to Your Business. India's leading bulk women's ethnic wear manufacturer and wholesaler.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-bemitex-maroon flex items-center justify-center hover:bg-bemitex-gold hover:text-bemitex-dark transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-bemitex-maroon flex items-center justify-center hover:bg-bemitex-gold hover:text-bemitex-dark transition-colors">
-                <Facebook size={20} />
-              </a>
+              <span className="text-sm text-bemitex-gold">Follow us on Social Media</span>
             </div>
           </div>
 

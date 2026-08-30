@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand Col */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-10 h-10 bg-white border border-gray-200 rounded-full p-1">
+              <div className="relative w-16 h-16 bg-white border border-gray-200 rounded-full p-1 shadow-sm">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
@@ -18,7 +18,7 @@ export default function Footer() {
                   className="object-contain rounded-full"
                 />
               </div>
-              <span className="text-2xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>
+              <span className="text-3xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>
             </div>
             <p className="text-gray-500 mb-6 leading-relaxed">
               Direct from Factory to Your Business. India's leading bulk women's ethnic wear manufacturer and wholesaler.

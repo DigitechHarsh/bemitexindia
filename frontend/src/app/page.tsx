@@ -23,8 +23,8 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* Hero Section */}
-      <section className="relative h-[80vh] md:h-[90vh] bg-bemitex-dark flex items-center">
-        <div className="absolute inset-0 z-0 opacity-40">
+      <section className="relative h-[80vh] md:h-[90vh] bg-white flex items-center">
+        <div className="absolute inset-0 z-0 opacity-20">
           <Image
             src="https://images.unsplash.com/photo-1583391733958-d1531119d1f5?q=80&w=2000&auto=format&fit=crop"
             alt="Wholesale Textiles"
@@ -32,7 +32,7 @@ export default function Home() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-bemitex-dark to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -42,22 +42,22 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              Direct from Factory to <span className="text-bemitex-gold">Your Business</span>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-bemitex-dark mb-6 leading-tight">
+              Direct from Factory to <span className="text-bemitex-maroon">Your Business</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-8 font-light">
+            <p className="text-xl text-gray-600 mb-8 font-light">
               India's premier bulk manufacturer of Women's Ethnic Wear. Empowering boutiques and resellers with quality products and unbeatable prices.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/products" className="bg-bemitex-gold text-bemitex-dark font-bold text-lg px-8 py-4 rounded hover:bg-white transition-colors text-center inline-flex justify-center items-center gap-2">
+              <Link href="/products" className="bg-bemitex-maroon text-white font-bold text-lg px-8 py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-2">
                 View Wholesale Catalog <ArrowRight size={20} />
               </Link>
-              <Link href="/video-call" className="bg-transparent border-2 border-white text-white font-bold text-lg px-8 py-4 rounded hover:bg-white/10 transition-colors text-center">
+              <Link href="/video-call" className="bg-transparent border-2 border-bemitex-dark text-bemitex-dark font-bold text-lg px-8 py-4 rounded hover:bg-gray-50 transition-colors text-center">
                 Book Video Call
               </Link>
             </div>
             <div className="mt-8">
-              <span className="inline-block bg-bemitex-maroon text-white font-bold px-4 py-2 rounded text-sm uppercase tracking-wider">
+              <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-4 py-2 rounded text-sm uppercase tracking-wider">
                 B2B Wholesale Only
               </span>
             </div>
@@ -129,19 +129,19 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-bemitex-maroon relative overflow-hidden">
-        <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+      <section className="py-24 bg-gray-50 border-t border-gray-200 relative overflow-hidden">
+        <div className="absolute right-0 bottom-0 opacity-5 transform translate-x-1/4 translate-y-1/4">
           <Image src="/logo.jpg" alt="Watermark" width={600} height={600} className="rounded-full grayscale" />
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-5xl font-serif font-bold text-bemitex-dark mb-6">
             Partner With India's Trusted Manufacturer
           </h2>
-          <p className="text-xl text-bemitex-cream/80 mb-10 font-light">
+          <p className="text-xl text-gray-600 mb-10 font-light">
             Whether you run a boutique, a retail chain, or are a home reseller, Bemitex India gives you the factory-direct advantage.
           </p>
-          <Link href="/inquiry" className="bg-bemitex-gold text-bemitex-dark font-bold text-xl px-10 py-5 rounded-lg shadow-xl hover:bg-white hover:scale-105 transition-all inline-block">
+          <Link href="/inquiry" className="bg-bemitex-maroon text-white font-bold text-xl px-10 py-5 rounded-lg shadow-xl hover:bg-bemitex-dark hover:scale-105 transition-all inline-block">
             Submit Bulk Inquiry
           </Link>
         </div>

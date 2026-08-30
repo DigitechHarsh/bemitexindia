@@ -69,6 +69,20 @@ CREATE TABLE admin_users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Banners (For Homepage Slider)
+CREATE TABLE banners (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(150),
+  title_color VARCHAR(50) DEFAULT 'text-bemitex-dark',
+  subtitle VARCHAR(250),
+  image_url VARCHAR(500) NOT NULL,
+  cta_text VARCHAR(50),
+  cta_link VARCHAR(250),
+  sort_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ==========================================
 -- DATA SEEDING
 -- ==========================================

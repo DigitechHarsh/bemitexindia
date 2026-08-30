@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Truck, Globe, Video, ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -20,48 +21,130 @@ export default function Home() {
     { name: "Partywear Gowns", image: "/images/gown.jpg", slug: "gowns" },
   ];
 
+  const heroSlides = [
+    {
+      image: "/banners/banner_kurti.jpg",
+      title: "Premium Wholesale Kurtis",
+      titleColor: "text-bemitex-maroon",
+      subtitle: "India's top ethnic wear collection direct from the factory.",
+      ctaText: "Shop Kurtis",
+      ctaLink: "/products?category=kurtis"
+    },
+    {
+      image: "/banners/banner_suit.jpg",
+      title: "Designer Salwar Suits",
+      titleColor: "text-bemitex-dark",
+      subtitle: "Elegant pastel collections with heavy embroidery.",
+      ctaText: "Shop Suits",
+      ctaLink: "/products?category=salwar-suits"
+    },
+    {
+      image: "/banners/banner_saree.jpg",
+      title: "Traditional Banarasi Sarees",
+      titleColor: "text-bemitex-maroon",
+      subtitle: "Authentic rich zari work and premium silk.",
+      ctaText: "Shop Sarees",
+      ctaLink: "/products?category=sarees"
+    },
+    {
+      image: "/banners/banner_gown.jpg",
+      title: "Heavy Bridal Gowns",
+      titleColor: "text-bemitex-dark",
+      subtitle: "Luxurious partywear for the modern boutique.",
+      ctaText: "Shop Gowns",
+      ctaLink: "/products?category=gowns"
+    },
+    {
+      image: "/banners/banner_factory.jpg",
+      title: "B2B Textile Manufacturing",
+      titleColor: "text-bemitex-maroon",
+      subtitle: "Quality and efficient wholesale manufacturing for your business.",
+      ctaText: "Book Video Call",
+      ctaLink: "/video-call"
+    }
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 2500); // 2.5 seconds slider
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="flex flex-col w-full overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] md:h-[90vh] bg-white flex items-center">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1583391733958-d1531119d1f5?q=80&w=2000&auto=format&fit=crop"
-            alt="Wholesale Textiles"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
-        </div>
+      {/* Hero Section Slider */}
+      <section className="relative h-[80vh] md:h-[90vh] bg-white flex items-center overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 z-0"
+          >
+            <Image
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].title}
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Soft gradient to make text readable on the left */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent w-full md:w-2/3"></div>
+          </motion.div>
+        </AnimatePresence>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
-          >
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-bemitex-dark mb-6 leading-tight">
-              Direct from Factory to <span className="text-bemitex-maroon">Your Business</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 font-light">
-              India's premier bulk manufacturer of Women's Ethnic Wear. Empowering boutiques and resellers with quality products and unbeatable prices.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/products" className="bg-bemitex-maroon text-white font-bold text-lg px-8 py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-2">
-                View Wholesale Catalog <ArrowRight size={20} />
-              </Link>
-              <Link href="/video-call" className="bg-transparent border-2 border-bemitex-dark text-bemitex-dark font-bold text-lg px-8 py-4 rounded hover:bg-gray-50 transition-colors text-center">
-                Book Video Call
-              </Link>
-            </div>
-            <div className="mt-8">
-              <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-4 py-2 rounded text-sm uppercase tracking-wider">
-                B2B Wholesale Only
-              </span>
-            </div>
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentSlide}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-2xl"
+            >
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-bemitex-dark mb-6 leading-tight">
+                <span className={heroSlides[currentSlide].titleColor}>
+                  {heroSlides[currentSlide].title}
+                </span>
+              </h1>
+              <p className="text-xl text-gray-700 mb-8 font-medium drop-shadow-sm">
+                {heroSlides[currentSlide].subtitle}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href={heroSlides[currentSlide].ctaLink} className="bg-bemitex-maroon text-white font-bold text-lg px-8 py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-2 shadow-lg hover:scale-105 transform transition-transform">
+                  {heroSlides[currentSlide].ctaText} <ArrowRight size={20} />
+                </Link>
+                <Link href="/video-call" className="bg-white/80 backdrop-blur-sm border-2 border-bemitex-dark text-bemitex-dark font-bold text-lg px-8 py-4 rounded hover:bg-gray-50 transition-colors text-center">
+                  Book Video Call
+                </Link>
+              </div>
+              <div className="mt-8">
+                <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-4 py-2 rounded text-sm uppercase tracking-wider shadow-md">
+                  B2B Wholesale Only
+                </span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Slider Dots */}
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
+          {heroSlides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                currentSlide === idx ? "bg-bemitex-maroon w-8" : "bg-gray-400 w-2 hover:bg-gray-600"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 

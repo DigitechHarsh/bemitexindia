@@ -10,12 +10,12 @@ export default function Footer() {
           {/* Brand Col */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-16 h-16 bg-white border border-gray-200 rounded-full p-1 shadow-sm">
+              <div className="relative w-24 h-24">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
-                  className="object-contain rounded-full"
+                  className="object-contain"
                 />
               </div>
               <span className="text-3xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>

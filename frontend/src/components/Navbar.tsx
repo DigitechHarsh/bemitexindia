@@ -20,15 +20,15 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex justify-between h-24">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <div className="relative w-16 h-16">
+              <div className="relative w-20 h-20">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
-                  className="object-contain rounded-full border border-gray-200 shadow-sm"
+                  className="object-contain"
                 />
               </div>
               <span className="text-3xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>

@@ -14,10 +14,10 @@ export default function Home() {
   ];
 
   const categories = [
-    { name: "Wholesale Kurtis", image: "https://images.unsplash.com/photo-1631541909061-71e34a360a03?q=80&w=800&auto=format&fit=crop", slug: "kurtis" },
-    { name: "Designer Salwar Suits", image: "https://images.unsplash.com/photo-1616421571738-eb7f1b1356fc?q=80&w=800&auto=format&fit=crop", slug: "salwar-suits" },
-    { name: "Traditional Sarees", image: "https://images.unsplash.com/photo-1610189031109-174092b3a992?q=80&w=800&auto=format&fit=crop", slug: "sarees" },
-    { name: "Partywear Gowns", image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop", slug: "gowns" },
+    { name: "Wholesale Kurtis", image: "/images/kurti.jpg", slug: "kurtis" },
+    { name: "Designer Salwar Suits", image: "/images/suit.jpg", slug: "salwar-suits" },
+    { name: "Traditional Sarees", image: "/images/saree.jpg", slug: "sarees" },
+    { name: "Partywear Gowns", image: "/images/gown.jpg", slug: "gowns" },
   ];
 
   return (

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Truck, Globe, Video, ShieldCheck, ArrowRight } from "lucide-react";
+import { Truck, Globe, Video, ShieldCheck, ArrowRight, Star, CheckCircle, Package } from "lucide-react";
 
 export default function Home() {
   const trustFeatures = [
@@ -19,6 +19,13 @@ export default function Home() {
     { name: "Designer Salwar Suits", image: "/images/suit.jpg", slug: "salwar-suits" },
     { name: "Traditional Sarees", image: "/images/saree.jpg", slug: "sarees" },
     { name: "Partywear Gowns", image: "/images/gown.jpg", slug: "gowns" },
+  ];
+
+  const featuredProducts = [
+    { id: 1, name: "Premium Anarkali Kurti", price: "₹450 / piece", moq: "12 pcs", image: "/images/kurti.jpg" },
+    { id: 2, name: "Georgette Designer Suit", price: "₹1,250 / piece", moq: "6 pcs", image: "/images/suit.jpg" },
+    { id: 3, name: "Banarasi Silk Saree", price: "₹1,850 / piece", moq: "8 pcs", image: "/images/saree.jpg" },
+    { id: 4, name: "Heavy Bridal Gown", price: "₹3,500 / piece", moq: "4 pcs", image: "/images/gown.jpg" },
   ];
 
   const heroSlides = [
@@ -211,7 +218,128 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Featured Products */}
+      <section className="py-20 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-bemitex-dark mb-4">Featured Products</h2>
+              <div className="w-24 h-1 bg-bemitex-gold"></div>
+            </div>
+            <Link href="/products" className="hidden md:flex items-center gap-2 text-bemitex-maroon font-bold hover:text-bemitex-dark transition-colors">
+              View All Catalog <ArrowRight size={20} />
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredProducts.map((product) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition-shadow group"
+              >
+                <div className="relative h-72 w-full overflow-hidden">
+                  <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-bemitex-maroon shadow-sm">
+                    MOQ: {product.moq}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex text-bemitex-gold mb-2">
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                  </div>
+                  <h3 className="text-lg font-bold text-bemitex-dark mb-2 line-clamp-1">{product.name}</h3>
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="text-bemitex-maroon font-bold text-xl">{product.price}</span>
+                  </div>
+                  <Link href="/inquiry" className="mt-4 w-full block text-center bg-gray-50 border border-gray-200 text-bemitex-dark font-medium py-2 rounded hover:bg-bemitex-maroon hover:text-white transition-colors">
+                    Inquire Now
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-8 text-center md:hidden">
+            <Link href="/products" className="inline-flex items-center gap-2 text-bemitex-maroon font-bold hover:text-bemitex-dark transition-colors">
+              View All Products <ArrowRight size={20} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-24 bg-bemitex-dark text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <Image src="/banners/banner_factory.jpg" alt="Factory" fill className="object-cover" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">Why Partner With<br/><span className="text-bemitex-gold">Bemitex India?</span></h2>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                With years of expertise in textile manufacturing, we provide businesses with high-quality ethnic wear at unbeatable factory-direct prices. Our state-of-the-art facility in Surat ensures every piece meets strict quality standards before it reaches your boutique or retail store.
+              </p>
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">500+</h4>
+                  <p className="text-gray-400">Happy B2B Clients</p>
+                </div>
+                <div>
+                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">10k+</h4>
+                  <p className="text-gray-400">Designs Manufactured</p>
+                </div>
+                <div>
+                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">100%</h4>
+                  <p className="text-gray-400">Quality Assurance</p>
+                </div>
+                <div>
+                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">PAN India</h4>
+                  <p className="text-gray-400">Delivery Network</p>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+              <Image src="/banners/banner_suit.jpg" alt="Bemitex Quality" fill className="object-cover" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-24 bg-gray-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-bemitex-dark mb-4">How To Order</h2>
+            <div className="w-24 h-1 bg-bemitex-gold mx-auto mb-6"></div>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Simple, transparent, and completely professional ordering process tailored for your business needs.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            <div className="hidden md:block absolute top-10 left-10 right-10 h-0.5 bg-gray-300 -z-10"></div>
+            
+            {[
+              { icon: <Package size={32} />, title: "1. Browse Catalog", desc: "Explore our wide range of wholesale ethnic wear collections." },
+              { icon: <Video size={32} />, title: "2. Video Call / Inquiry", desc: "Book a live video call to see samples or send a bulk inquiry." },
+              { icon: <CheckCircle size={32} />, title: "3. Confirm Order", desc: "Finalize your selection, quantities, and receive the invoice." },
+              { icon: <Truck size={32} />, title: "4. Fast Delivery", desc: "Goods dispatched with tracking. COD available across India." }
+            ].map((step, idx) => (
+              <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} className="flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-bemitex-maroon shadow-lg border-4 border-gray-50 mb-6 relative z-10">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-bemitex-dark mb-3">{step.title}</h3>
+                <p className="text-gray-600">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="py-24 bg-gray-50 border-t border-gray-200 relative overflow-hidden">
         <div className="absolute right-0 bottom-0 opacity-5 transform translate-x-1/4 translate-y-1/4">
           <Image src="/logo.jpg" alt="Watermark" width={600} height={600} className="rounded-full grayscale" />

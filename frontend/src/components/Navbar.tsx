@@ -22,8 +22,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-24">
           <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <div className="relative w-20 h-20">
+            <Link href="/" className="flex-shrink-0 flex items-center gap-2 md:gap-3">
+              <div className="relative w-12 h-12 md:w-20 md:h-20">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
@@ -31,7 +31,7 @@ export default function Navbar() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-3xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>
+              <span className="text-xl md:text-3xl font-serif text-bemitex-maroon font-bold whitespace-nowrap">Bemitex India</span>
             </Link>
           </div>
 

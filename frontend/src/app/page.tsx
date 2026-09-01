@@ -115,12 +115,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="max-w-2xl"
             >
-              <h1 className="text-4xl md:text-6xl font-serif font-bold text-bemitex-dark mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold text-bemitex-dark mb-4 md:mb-6 leading-tight">
                 <span className={heroSlides[currentSlide].titleColor}>
                   {heroSlides[currentSlide].title}
                 </span>
               </h1>
-              <p className="text-xl text-gray-700 mb-8 font-medium drop-shadow-sm">
+              <p className="text-lg sm:text-xl text-gray-700 mb-6 md:mb-8 font-medium drop-shadow-sm">
                 {heroSlides[currentSlide].subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -304,7 +304,7 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative h-64 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
               <Image src="/banners/banner_suit.jpg" alt="Bemitex Quality" fill className="object-cover" />
             </motion.div>
           </div>

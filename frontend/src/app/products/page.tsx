@@ -24,12 +24,12 @@ interface Category {
 
 // Dummy data for initial dev (will replace with API call)
 const dummyProducts: Product[] = [
-  { id: 1, name: "Premium Anarkali Kurti with Embroidery", slug: "premium-anarkali", fabric: "Rayon Slub", moq: 12, price_per_piece: 450, category_name: "Kurtis", main_image: "/images/kurti.jpg" },
-  { id: 2, name: "Georgette Designer Salwar Suit", slug: "georgette-suit", fabric: "Georgette", moq: 6, price_per_piece: 1250, category_name: "Salwar Suits", main_image: "/images/suit.jpg" },
-  { id: 3, name: "Banarasi Silk Saree Collection", slug: "banarasi-silk", fabric: "Banarasi Silk", moq: 8, price_per_piece: 1850, category_name: "Sarees", main_image: "/images/saree.jpg" },
-  { id: 4, name: "Cotton Printed Kurti Set", slug: "cotton-kurti-set", fabric: "Pure Cotton", moq: 20, price_per_piece: 350, category_name: "Kurtis", main_image: "/images/kurti.jpg" },
-  { id: 5, name: "Heavy Bridal Gown", slug: "heavy-bridal-gown", fabric: "Net & Satin", moq: 4, price_per_piece: 3500, category_name: "Gowns", main_image: "/images/gown.jpg" },
-  { id: 6, name: "Pashmina Winter Suit", slug: "pashmina-winter", fabric: "Pashmina", moq: 10, price_per_piece: 850, category_name: "Salwar Suits", main_image: "/images/suit.jpg" },
+  { id: 1, name: "Premium Anarkali Kurti with Embroidery", slug: "premium-anarkali", fabric: "Rayon Slub", moq: 12, price_per_piece: 450, category_name: "Kurtis", main_image: "/products/prod_anarkali.jpg" },
+  { id: 2, name: "Georgette Designer Salwar Suit", slug: "georgette-suit", fabric: "Georgette", moq: 6, price_per_piece: 1250, category_name: "Salwar Suits", main_image: "/products/prod_suit.jpg" },
+  { id: 3, name: "Banarasi Silk Saree Collection", slug: "banarasi-silk", fabric: "Banarasi Silk", moq: 8, price_per_piece: 1850, category_name: "Sarees", main_image: "/products/prod_saree.jpg" },
+  { id: 4, name: "Cotton Printed Kurti Set", slug: "cotton-kurti-set", fabric: "Pure Cotton", moq: 20, price_per_piece: 350, category_name: "Kurtis", main_image: "/products/prod_cotton.jpg" },
+  { id: 5, name: "Heavy Bridal Gown", slug: "heavy-bridal-gown", fabric: "Net & Satin", moq: 4, price_per_piece: 3500, category_name: "Gowns", main_image: "/products/prod_gown.jpg" },
+  { id: 6, name: "Pashmina Winter Suit", slug: "pashmina-winter", fabric: "Pashmina", moq: 10, price_per_piece: 850, category_name: "Salwar Suits", main_image: "/products/prod_pashmina.jpg" },
 ];
 
 const dummyCategories: Category[] = [

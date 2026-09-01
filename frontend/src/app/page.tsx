@@ -22,10 +22,10 @@ export default function Home() {
   ];
 
   const featuredProducts = [
-    { id: 1, name: "Premium Anarkali Kurti", price: "₹450 / piece", moq: "12 pcs", image: "/images/kurti.jpg" },
-    { id: 2, name: "Georgette Designer Suit", price: "₹1,250 / piece", moq: "6 pcs", image: "/images/suit.jpg" },
-    { id: 3, name: "Banarasi Silk Saree", price: "₹1,850 / piece", moq: "8 pcs", image: "/images/saree.jpg" },
-    { id: 4, name: "Heavy Bridal Gown", price: "₹3,500 / piece", moq: "4 pcs", image: "/images/gown.jpg" },
+    { id: 1, name: "Premium Anarkali Kurti", price: "₹450 / piece", moq: "12 pcs", image: "/products/prod_anarkali.jpg" },
+    { id: 2, name: "Georgette Designer Suit", price: "₹1,250 / piece", moq: "6 pcs", image: "/products/prod_suit.jpg" },
+    { id: 3, name: "Banarasi Silk Saree", price: "₹1,850 / piece", moq: "8 pcs", image: "/products/prod_saree.jpg" },
+    { id: 4, name: "Heavy Bridal Gown", price: "₹3,500 / piece", moq: "4 pcs", image: "/products/prod_gown.jpg" },
   ];
 
   const heroSlides = [

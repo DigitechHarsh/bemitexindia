@@ -106,3 +106,12 @@ INSERT INTO products (category_id, name, slug, description, fabric, moq, price_p
 -- Insert Default Admin User (Password is 'admin123' using PHP password_hash)
 INSERT INTO admin_users (username, password_hash) VALUES 
 ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+
+-- Insert Product Images
+INSERT INTO product_images (product_id, image_url, sort_order) VALUES 
+(1, '/products/prod_anarkali.jpg', 1),
+(2, '/products/prod_suit.jpg', 1),
+(3, '/products/prod_saree.jpg', 1),
+(4, '/products/prod_cotton.jpg', 1),
+(5, '/products/prod_gown.jpg', 1),
+(6, '/products/prod_pashmina.jpg', 1);

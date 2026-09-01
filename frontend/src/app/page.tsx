@@ -207,7 +207,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
-                    <span className="text-bemitex-gold font-medium flex items-center gap-1 group-hover:translate-x-2 transition-transform">
+                    <span className="text-white font-medium flex items-center gap-1 group-hover:translate-x-2 transition-transform">
                       Explore Collection <ArrowRight size={16} />
                     </span>
                   </div>
@@ -281,25 +281,25 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">Why Partner With<br/><span className="text-bemitex-gold">Bemitex India?</span></h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">Why Partner With<br/><span className="text-white">Bemitex India?</span></h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                 With years of expertise in textile manufacturing, we provide businesses with high-quality ethnic wear at unbeatable factory-direct prices. Our state-of-the-art facility in Surat ensures every piece meets strict quality standards before it reaches your boutique or retail store.
               </p>
               <div className="grid grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">500+</h4>
+                  <h4 className="text-4xl font-bold text-white mb-2">500+</h4>
                   <p className="text-gray-400">Happy B2B Clients</p>
                 </div>
                 <div>
-                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">10k+</h4>
+                  <h4 className="text-4xl font-bold text-white mb-2">10k+</h4>
                   <p className="text-gray-400">Designs Manufactured</p>
                 </div>
                 <div>
-                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">100%</h4>
+                  <h4 className="text-4xl font-bold text-white mb-2">100%</h4>
                   <p className="text-gray-400">Quality Assurance</p>
                 </div>
                 <div>
-                  <h4 className="text-4xl font-bold text-bemitex-gold mb-2">PAN India</h4>
+                  <h4 className="text-4xl font-bold text-white mb-2">PAN India</h4>
                   <p className="text-gray-400">Delivery Network</p>
                 </div>
               </div>

@@ -19,22 +19,37 @@ export default function ContactPage() {
             <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
               <h3 className="text-2xl font-bold text-bemitex-maroon mb-6">Primary Facility (Khatodara)</h3>
               <ul className="space-y-4">
-                <li className="flex items-start gap-4">
-                  <MapPin className="text-bemitex-gold mt-1 shrink-0" size={24} />
-                  <span className="text-gray-600">Ground Floor, Plot No. 12/B, Kharwarnagar BRTS Stop, Beside INS Hospital, Khatodara, Udhna Udhyog Nagar, Surat - 395002, Gujarat</span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <Phone className="text-bemitex-gold shrink-0" size={24} />
-                  <span className="text-gray-600">+91 98765 43210 (Sales & Wholesale)</span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <Mail className="text-bemitex-gold shrink-0" size={24} />
-                  <span className="text-gray-600">wholesale@bemitexindia.com</span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <Clock className="text-bemitex-gold shrink-0" size={24} />
-                  <span className="text-gray-600">Mon - Sat: 10:00 AM - 7:00 PM (Sunday Closed)</span>
-                </li>
+                <div className="flex gap-4">
+                  <MapPin className="text-bemitex-maroon mt-1 shrink-0" size={24} />
+                  <div>
+                    <h3 className="font-bold text-bemitex-dark">Office / Factory</h3>
+                    <p className="text-gray-600">Bemitex Textile Hub, Ring Road<br/>Surat, Gujarat 395002, India</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <Phone className="text-bemitex-maroon shrink-0" size={24} />
+                  <div>
+                    <h3 className="font-bold text-bemitex-dark">Phone</h3>
+                    <p className="text-gray-600">+91 98765 43210<br/>+91 98765 43211</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <Mail className="text-bemitex-maroon shrink-0" size={24} />
+                  <div>
+                    <h3 className="font-bold text-bemitex-dark">Email</h3>
+                    <p className="text-gray-600">sales@bemitexindia.com<br/>info@bemitexindia.com</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <Clock className="text-bemitex-maroon shrink-0" size={24} />
+                  <div>
+                    <h3 className="font-bold text-bemitex-dark">Business Hours</h3>
+                    <p className="text-gray-600">Monday - Saturday: 10:00 AM - 7:00 PM<br/>Sunday: Closed</p>
+                  </div>
+                </div>
               </ul>
             </div>
 

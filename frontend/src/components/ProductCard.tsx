@@ -45,7 +45,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow">
-        <div className="text-xs text-bemitex-gold font-bold uppercase tracking-wider mb-2">
+        <div className="text-xs text-bemitex-maroon font-bold uppercase tracking-wider mb-2">
           {product.category_name}
         </div>
         <Link href={`/products/${product.slug}`}>

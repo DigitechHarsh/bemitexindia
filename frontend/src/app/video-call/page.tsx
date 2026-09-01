@@ -41,9 +41,9 @@ export default function VideoCallPage() {
       
       {/* Banner */}
       <div className="bg-bemitex-dark text-white py-16 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <Video size={48} className="text-bemitex-gold mx-auto mb-4" />
-          <h1 className="text-4xl font-serif font-bold mb-4">Video Call Shopping Assistance</h1>
+        <div className="text-center mb-12">
+          <Video size={48} className="text-bemitex-maroon mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4">Video Call Shopping Assistance</h1>
           <p className="text-gray-300 text-lg">
             Can't visit our Surat factory? No problem. Book a personalized video call to see our latest collections, check fabric quality live, and place your bulk orders with confidence.
           </p>

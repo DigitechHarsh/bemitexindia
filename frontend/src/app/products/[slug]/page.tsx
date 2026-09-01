@@ -104,7 +104,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           {/* Product Info */}
           <div>
             <div className="mb-2">
-              <span className="text-sm font-bold text-bemitex-gold uppercase tracking-wider">
+              <span className="text-sm font-bold text-bemitex-maroon uppercase tracking-wider">
                 {product.category_name}
               </span>
             </div>

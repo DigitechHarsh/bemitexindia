@@ -64,7 +64,7 @@ export default function AdminLayout({
         }`}
       >
         <div className="h-20 flex items-center justify-between px-6 border-b border-gray-800">
-          <span className="text-xl font-bold font-serif text-bemitex-gold">Bemitex Admin</span>
+          <span className="text-xl font-bold font-serif text-white">Bemitex Admin</span>
           <button className="md:hidden text-gray-400 hover:text-white" onClick={() => setIsSidebarOpen(true)}>
             <X size={24} />
           </button>

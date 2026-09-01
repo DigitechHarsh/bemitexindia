@@ -63,7 +63,7 @@ export default function HowItWorksPage() {
         <div className="mt-20 text-center bg-white p-8 rounded-xl shadow-sm border border-gray-100">
           <h2 className="text-2xl font-bold mb-4">Ready to stock up?</h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/products" className="bg-bemitex-gold text-bemitex-dark px-8 py-3 rounded font-bold hover:bg-yellow-500 transition-colors">
+            <Link href="/products" className="bg-bemitex-maroon text-white px-8 py-3 rounded font-bold hover:bg-bemitex-dark transition-colors">
               Browse Catalog
             </Link>
             <Link href="/video-call" className="bg-bemitex-dark text-white px-8 py-3 rounded font-bold hover:bg-gray-800 transition-colors">

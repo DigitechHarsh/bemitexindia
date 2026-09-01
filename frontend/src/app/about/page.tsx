@@ -45,7 +45,7 @@ export default function AboutPage() {
             <ul className="space-y-3">
               {reasons.map((reason, idx) => (
                 <li key={idx} className="flex items-center gap-3 text-gray-700">
-                  <CheckCircle2 className="text-bemitex-gold flex-shrink-0" size={20} />
+                  <CheckCircle2 className="text-bemitex-maroon flex-shrink-0" size={20} />
                   <span>{reason}</span>
                 </li>
               ))}

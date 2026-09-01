@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="text-2xl md:text-3xl font-serif text-bemitex-maroon font-bold">Bemitex India</span>
             </div>
             <p className="text-gray-500 mb-6 leading-relaxed">
-              Direct from Factory to Your Business. India's leading bulk women's ethnic wear manufacturer and wholesaler.
+              Direct from Factory to Your Business. India&apos;s leading bulk women&apos;s ethnic wear manufacturer and wholesaler.
             </p>
             <div className="flex gap-4">
               <span className="text-sm text-bemitex-maroon font-semibold">Follow us on Social Media</span>

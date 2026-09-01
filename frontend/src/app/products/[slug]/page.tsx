@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 import { ArrowLeft, MessageCircle, Ruler, Info, Package, Loader2 } from "lucide-react";
 
 // Dummy data for initial dev
@@ -22,8 +22,20 @@ const dummyProduct = {
   ]
 };
 
+interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  fabric: string;
+  moq: number;
+  price_per_piece: number;
+  category_name: string;
+  images: { image_url: string; sort_order: number }[];
+}
+
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
 
@@ -83,7 +95,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
             
             {product.images.length > 1 && (
               <div className="flex gap-4 overflow-x-auto pb-2">
-                {product.images.map((img: any, idx: number) => (
+                {product.images.map((img: { image_url: string; sort_order: number }, idx: number) => (
                   <button 
                     key={idx}
                     onClick={() => setActiveImage(idx)}

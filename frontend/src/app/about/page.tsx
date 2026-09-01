@@ -35,7 +35,7 @@ export default function AboutPage() {
               About Bemitex India
             </h1>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Based in the textile hub of Surat, Gujarat, Bemitex India is a premier manufacturer and wholesale distributor of women's ethnic wear. We specialize in supply-chain distribution, serving business owners, retail showrooms, boutique owners, and home resellers across the globe.
+              Based in the textile hub of Surat, Gujarat, Bemitex India is a premier manufacturer and wholesale distributor of women&apos;s ethnic wear. We specialize in supply-chain distribution, serving business owners, retail showrooms, boutique owners, and home resellers across the globe.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Our mission is to empower businesses with high-margin, top-quality ethnic wear direct from the factory. By eliminating middlemen, we ensure that you get the best wholesale prices without compromising on fabric quality or intricate detailing.

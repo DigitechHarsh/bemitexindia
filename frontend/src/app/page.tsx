@@ -78,7 +78,7 @@ export default function Home() {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 2500); // 2.5 seconds slider
     return () => clearInterval(timer);
-  }, []);
+  }, [heroSlides.length]);
 
   return (
     <div className="flex flex-col w-full overflow-hidden">
@@ -347,7 +347,7 @@ export default function Home() {
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-bemitex-dark mb-6">
-            Partner With India's Trusted Manufacturer
+            Partner With India&apos;s Trusted Manufacturer
           </h2>
           <p className="text-xl text-gray-600 mb-10 font-light">
             Whether you run a boutique, a retail chain, or are a home reseller, Bemitex India gives you the factory-direct advantage.

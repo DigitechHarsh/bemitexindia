@@ -45,7 +45,7 @@ export default function VideoCallPage() {
           <Video size={48} className="text-bemitex-maroon mx-auto mb-4" />
           <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4">Video Call Shopping Assistance</h1>
           <p className="text-gray-300 text-lg">
-            Can't visit our Surat factory? No problem. Book a personalized video call to see our latest collections, check fabric quality live, and place your bulk orders with confidence.
+            Can&apos;t visit our Surat factory? No problem. Book a personalized video call to see our latest collections, check fabric quality live, and place your bulk orders with confidence.
           </p>
         </div>
       </div>

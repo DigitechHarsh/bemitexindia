@@ -124,7 +124,7 @@ function CatalogContent() {
         ) : (
           <div className="bg-white rounded-lg p-12 text-center border border-gray-100">
             <h3 className="text-xl font-bold text-gray-800 mb-2">No products found</h3>
-            <p className="text-gray-500 mb-6">We couldn't find any products in this category.</p>
+            <p className="text-gray-500 mb-6">We couldn&apos;t find any products in this category.</p>
             <button 
               onClick={() => setSelectedCategory("all")}
               className="bg-bemitex-maroon text-white px-6 py-2 rounded font-medium hover:bg-bemitex-maroon/90"

@@ -76,7 +76,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 2500); // 2.5 seconds slider
+    }, 4000); // 4 seconds slider
     return () => clearInterval(timer);
   }, [heroSlides.length]);
 

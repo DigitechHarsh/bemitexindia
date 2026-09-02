@@ -34,15 +34,14 @@ export default function Navbar() {
               <Link href="/how-it-works" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">How It Works</Link>
             </div>
 
-            {/* Center Overhanging Logo */}
             <div className="relative z-50 flex flex-col items-center justify-start h-full pt-4">
-              <Link href="/" className="group">
-                <div className="relative w-28 h-28 bg-white rounded-full p-2 shadow-md border border-gray-100 group-hover:shadow-lg transition-shadow">
+              <Link href="/" className="group block hover:scale-105 transition-transform">
+                <div className="relative w-28 h-28">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"
                     fill
-                    className="object-contain rounded-full"
+                    className="object-contain mix-blend-multiply"
                   />
                 </div>
               </Link>
@@ -65,13 +64,13 @@ export default function Navbar() {
 
           {/* Mobile Center Logo (Visible only on mobile) */}
           <div className="md:hidden absolute left-1/2 -translate-x-1/2 top-2 z-50 flex flex-col items-center">
-            <Link href="/" className="group">
-              <div className="relative w-20 h-20 bg-white rounded-full p-1 shadow-md border border-gray-100">
+            <Link href="/" className="group block">
+              <div className="relative w-20 h-20">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
-                  className="object-contain rounded-full"
+                  className="object-contain mix-blend-multiply"
                 />
               </div>
             </Link>

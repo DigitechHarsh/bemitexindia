@@ -72,7 +72,7 @@ function CatalogContent() {
       <div className="w-full lg:w-64 flex-shrink-0">
         <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-5 sticky top-24">
           <div className="flex justify-between items-center lg:mb-4 cursor-pointer lg:cursor-default" onClick={() => setIsFilterOpen(!isFilterOpen)}>
-            <h3 className="text-lg font-bold flex items-center gap-2">
+            <h3 className="text-lg font-bold flex items-center gap-2 text-bemitex-dark">
               <Filter size={20} className="text-bemitex-maroon" /> Filters
             </h3>
             <ChevronDown size={20} className={`lg:hidden transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />

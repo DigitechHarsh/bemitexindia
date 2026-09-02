@@ -24,17 +24,49 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Desktop Left Nav */}
-          <div className="hidden md:flex items-center space-x-8 flex-1">
-            <Link href="/" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Home</Link>
-            <Link href="/products" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Catalog</Link>
-            <Link href="/how-it-works" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">How It Works</Link>
+          {/* Desktop Layout: Centered with everything close together */}
+          <div className="hidden md:flex w-full items-center justify-center gap-12">
+            
+            {/* Desktop Left Nav */}
+            <div className="flex items-center space-x-8">
+              <Link href="/" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Home</Link>
+              <Link href="/products" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Catalog</Link>
+              <Link href="/how-it-works" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">How It Works</Link>
+            </div>
+
+            {/* Center Overhanging Logo */}
+            <div className="relative z-50 flex flex-col items-center justify-start h-full pt-4">
+              <Link href="/" className="group">
+                <div className="relative w-28 h-28 bg-white rounded-full p-2 shadow-md border border-gray-100 group-hover:shadow-lg transition-shadow">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Bemitex Logo"
+                    fill
+                    className="object-contain rounded-full"
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* Desktop Right Nav */}
+            <div className="flex items-center space-x-8">
+              <Link href="/about" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">About Us</Link>
+              <Link href="/contact" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Contact</Link>
+              <Link
+                href="/inquiry"
+                className="bg-bemitex-maroon text-white px-6 py-2 rounded-md font-semibold hover:bg-bemitex-dark transition-colors shadow-sm hover:shadow flex items-center gap-2"
+              >
+                <PhoneCall size={18} />
+                Bulk Inquiry
+              </Link>
+            </div>
+            
           </div>
 
-          {/* Center Overhanging Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-2 md:top-4 z-50 flex flex-col items-center pointer-events-none">
-            <Link href="/" className="pointer-events-auto flex flex-col items-center group">
-              <div className="relative w-16 h-16 md:w-32 md:h-32 bg-white rounded-full p-1 md:p-2 shadow-md border border-gray-100 group-hover:shadow-lg transition-shadow">
+          {/* Mobile Center Logo (Visible only on mobile) */}
+          <div className="md:hidden absolute left-1/2 -translate-x-1/2 top-2 z-50 flex flex-col items-center">
+            <Link href="/" className="group">
+              <div className="relative w-20 h-20 bg-white rounded-full p-1 shadow-md border border-gray-100">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
@@ -42,20 +74,6 @@ export default function Navbar() {
                   className="object-contain rounded-full"
                 />
               </div>
-              <span className="text-lg md:text-2xl font-serif text-bemitex-maroon font-bold whitespace-nowrap mt-1 md:mt-2 drop-shadow-sm bg-white/90 px-3 py-0.5 rounded-full backdrop-blur-sm">Bemitex India</span>
-            </Link>
-          </div>
-
-          {/* Desktop Right Nav */}
-          <div className="hidden md:flex items-center space-x-8 flex-1 justify-end">
-            <Link href="/about" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">About Us</Link>
-            <Link href="/contact" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Contact</Link>
-            <Link
-              href="/inquiry"
-              className="bg-bemitex-maroon text-white px-6 py-2 rounded-md font-semibold hover:bg-bemitex-dark transition-colors shadow-sm hover:shadow flex items-center gap-2"
-            >
-              <PhoneCall size={18} />
-              Bulk Inquiry
             </Link>
           </div>
 

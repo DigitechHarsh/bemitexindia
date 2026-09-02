@@ -36,8 +36,8 @@ export default function Navbar() {
 
             {/* Center Overhanging Logo */}
             <div className="relative z-50 flex items-center justify-center w-32 h-full">
-              <Link href="/" className="group block hover:scale-105 transition-transform absolute -mt-4 md:-mt-6">
-                <div className="relative w-28 h-28 md:w-44 md:h-44">
+              <Link href="/" className="group block hover:scale-105 transition-transform absolute -mt-1 md:-mt-2">
+                <div className="relative w-28 h-28 md:w-36 md:h-36">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"

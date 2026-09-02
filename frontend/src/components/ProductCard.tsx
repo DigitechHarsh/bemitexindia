@@ -19,9 +19,11 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  // Use placeholder if no image
+  // Use placeholder if no image, and support relative public paths vs backend uploads
   const imageUrl = product.main_image 
-    ? `http://localhost/backend/uploads/${product.main_image}` 
+    ? (product.main_image.startsWith('/') || product.main_image.startsWith('http') 
+        ? product.main_image 
+        : `https://harshaicreations.com/bemitex/backend/uploads/${product.main_image}`)
     : "https://images.unsplash.com/photo-1583391733958-d1531119d1f5?q=80&w=600&auto=format&fit=crop";
 
   return (

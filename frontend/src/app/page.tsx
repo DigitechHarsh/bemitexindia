@@ -83,8 +83,8 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* Banner Text Image (Between Navbar and Hero) */}
-      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex justify-center items-center py-2 md:py-3 px-4">
-        <div className="relative w-full max-w-[350px] md:max-w-[550px] lg:max-w-[700px] flex justify-center items-center">
+      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex justify-center items-center px-4 overflow-hidden">
+        <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center -my-3 md:-my-5 lg:-my-6">
           <Image
             src="/midimage.png"
             alt="Bemitex India"

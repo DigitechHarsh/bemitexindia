@@ -11,6 +11,10 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const metadata: Metadata = {
   title: "Bemitex India | Factory-Direct Wholesale Ethnic Wear",
   description: "India's leading bulk manufacturer and wholesaler of Kurtis, Designer Salwar Suits, and Traditional Sarees. B2B wholesale only.",
+  icons: {
+    icon: "/logo.jpg",
+    apple: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({

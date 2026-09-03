@@ -83,8 +83,8 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* Banner Text Image (Between Navbar and Hero) */}
-      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex justify-center items-center px-4 overflow-hidden">
-        <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center -my-3 md:-my-5 lg:-my-6">
+      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex flex-col justify-center items-center px-4 pt-1 pb-2 md:pt-2 md:pb-3 overflow-hidden">
+        <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center -mt-3 md:-mt-6 lg:-mt-8 -mb-1 md:-mb-3 lg:-mb-5">
           <Image
             src="/midimage.png"
             alt="Bemitex India"
@@ -95,6 +95,9 @@ export default function Home() {
             quality={100}
           />
         </div>
+        <p className="text-[10px] md:text-xs lg:text-sm text-gray-600 font-medium tracking-wide text-center z-20 mt-1">
+          &quot;Wholesale supplier in Delhi, Haryana, Punjab, Jammu Kashmir, Kerala and all over India&quot;
+        </p>
       </div>
 
       {/* Hero Section Slider */}

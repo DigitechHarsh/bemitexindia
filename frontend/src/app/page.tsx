@@ -83,8 +83,8 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* Banner Text Image (Between Navbar and Hero) */}
-      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex flex-col justify-center items-center px-4 pt-1 pb-2 md:pt-2 md:pb-3 overflow-hidden">
-        <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center -mt-3 md:-mt-6 lg:-mt-8 -mb-1 md:-mb-3 lg:-mb-5">
+      <div className="w-full bg-white border-b border-t border-gray-100 shadow-sm z-10 relative flex flex-col justify-center items-center pt-1 pb-2 md:pt-2 md:pb-3 overflow-hidden">
+        <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center px-4 -mt-3 md:-mt-6 lg:-mt-8 -mb-1 md:-mb-3 lg:-mb-5 z-20 bg-white">
           <Image
             src="/midimage.png"
             alt="Bemitex India"
@@ -95,9 +95,13 @@ export default function Home() {
             quality={100}
           />
         </div>
-        <p className="text-sm md:text-base lg:text-lg font-bold text-pink-600 tracking-wide text-center z-20 mt-1 animate-blink">
-          &quot;Wholesale supplier in Delhi, Haryana, Punjab, Jammu Kashmir, Kerala and all over India&quot;
-        </p>
+        
+        {/* Marquee Tagline */}
+        <div className="w-full overflow-hidden mt-1 md:mt-2 relative flex items-center">
+          <p className="whitespace-nowrap animate-marquee text-sm md:text-base lg:text-lg font-bold text-pink-600 tracking-wide inline-block">
+            &quot;Wholesale supplier in Delhi, Haryana, Punjab, Jammu Kashmir, Kerala and all over India&quot;
+          </p>
+        </div>
       </div>
 
       {/* Hero Section Slider */}

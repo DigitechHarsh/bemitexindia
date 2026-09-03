@@ -10,11 +10,16 @@ const config: Config = {
     extend: {
       animation: {
         blink: 'blink 1s step-start infinite',
+        marquee: 'marquee 20s linear infinite',
       },
       keyframes: {
         blink: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(100vw)' },
+          '100%': { transform: 'translateX(-100%)' },
         }
       },
       colors: {

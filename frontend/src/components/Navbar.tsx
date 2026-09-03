@@ -14,14 +14,33 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 md:h-24 relative">
           
-          {/* Mobile Menu Button */}
-          <div className="flex items-center md:hidden flex-1">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-bemitex-dark hover:text-bemitex-maroon p-2 -ml-2"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+          {/* Mobile Layout (Visible only on small screens) */}
+          <div className="flex md:hidden w-full items-center justify-between">
+            {/* Left: Logo */}
+            <Link href="/" className="group block">
+              <div className="relative w-32 h-16">
+                <Image
+                  src="/logo.jpg"
+                  alt="Bemitex Logo"
+                  fill
+                  className="object-contain mix-blend-multiply"
+                  priority
+                />
+              </div>
+            </Link>
+
+            {/* Right: Phone & Menu */}
+            <div className="flex items-center gap-2">
+              <Link href="/inquiry" className="text-bemitex-maroon p-2">
+                <PhoneCall size={24} />
+              </Link>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-bemitex-dark hover:text-bemitex-maroon p-2 -mr-2"
+              >
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
 
           {/* Desktop Layout: Logo Left, Nav Middle, Action Right */}
@@ -62,28 +81,6 @@ export default function Navbar() {
               </Link>
             </div>
             
-          </div>
-
-          {/* Mobile Center Logo (Visible only on mobile) */}
-          <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center">
-            <Link href="/" className="group block">
-              <div className="relative w-32 h-16">
-                <Image
-                  src="/logo.jpg"
-                  alt="Bemitex Logo"
-                  fill
-                  className="object-contain mix-blend-multiply"
-                  priority
-                />
-              </div>
-            </Link>
-          </div>
-
-          {/* Mobile Right Action */}
-          <div className="flex items-center md:hidden flex-1 justify-end">
-            <Link href="/inquiry" className="text-bemitex-maroon p-2 -mr-2">
-              <PhoneCall size={24} />
-            </Link>
           </div>
 
         </div>

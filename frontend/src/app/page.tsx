@@ -132,7 +132,7 @@ export default function Home() {
         </div>
         
         {/* Text Content Overlay */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-14 md:pt-0">
           <AnimatePresence mode="wait">
             <motion.div 
               key={currentSlide}
@@ -142,24 +142,24 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="max-w-[85%] sm:max-w-md md:max-w-2xl w-full"
             >
-              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-bemitex-dark mb-2 md:mb-6 leading-tight">
+              <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-bemitex-dark mb-1.5 md:mb-6 leading-tight">
                 <span className={heroSlides[currentSlide].titleColor}>
                   {heroSlides[currentSlide].title}
                 </span>
               </h1>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-800 mb-4 md:mb-8 font-semibold drop-shadow-sm">
+              <p className="text-xs sm:text-base md:text-lg lg:text-xl text-gray-800 mb-3 md:mb-8 font-semibold drop-shadow-sm">
                 {heroSlides[currentSlide].subtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
-                <Link href={heroSlides[currentSlide].ctaLink} className="bg-bemitex-maroon text-white font-bold text-sm md:text-lg px-4 md:px-8 py-2 md:py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-1.5 md:gap-2 shadow-lg hover:scale-105 transform transition-transform">
-                  {heroSlides[currentSlide].ctaText} <ArrowRight size={16} className="md:w-5 md:h-5" />
+              <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-3 md:gap-4 max-w-[220px] sm:max-w-none">
+                <Link href={heroSlides[currentSlide].ctaLink} className="bg-bemitex-maroon text-white font-semibold md:font-bold text-xs md:text-lg px-3.5 py-1.5 md:px-8 md:py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-1.5 md:gap-2 shadow-md hover:scale-105 transform transition-transform">
+                  {heroSlides[currentSlide].ctaText} <ArrowRight size={13} className="md:w-5 md:h-5" />
                 </Link>
-                <Link href="/video-call" className="bg-white/80 backdrop-blur-sm border border-bemitex-dark text-bemitex-dark font-bold text-sm md:text-lg px-4 md:px-8 py-2 md:py-4 rounded hover:bg-gray-50 transition-colors text-center shadow-sm">
+                <Link href="/video-call" className="bg-white/90 backdrop-blur-sm border border-bemitex-dark text-bemitex-dark font-semibold md:font-bold text-xs md:text-lg px-3.5 py-1.5 md:px-8 md:py-4 rounded hover:bg-gray-50 transition-colors text-center shadow-sm">
                   Book Video Call
                 </Link>
               </div>
-              <div className="mt-4 md:mt-8">
-                <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-2 py-1 md:px-4 md:py-2 rounded text-[10px] md:text-sm uppercase tracking-wider shadow-md">
+              <div className="mt-2.5 md:mt-8">
+                <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-2 py-0.5 md:px-4 md:py-2 rounded text-[9px] md:text-sm uppercase tracking-wider shadow-sm">
                   B2B Wholesale Only
                 </span>
               </div>

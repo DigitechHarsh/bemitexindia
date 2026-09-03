@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Truck, Globe, Video, ShieldCheck, ArrowRight, Star, CheckCircle, Package } from "lucide-react";
-import TextLogo from "@/components/TextLogo";
 
 export default function Home() {
   const trustFeatures = [
@@ -83,9 +82,17 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full overflow-hidden">
-      {/* Banner Text (Between Navbar and Hero) */}
-      <div className="w-full bg-white py-4 md:py-8 flex justify-center items-center border-b border-t border-gray-100 shadow-sm z-10 relative">
-        <TextLogo />
+      {/* Banner Text Image (Between Navbar and Hero) */}
+      <div className="w-full bg-white py-2 md:py-4 flex justify-center items-center border-b border-t border-gray-100 shadow-sm z-10 relative">
+        <div className="relative w-full max-w-4xl h-12 md:h-16">
+          <Image
+            src="/midimage.png"
+            alt="Bemitex India"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
       </div>
 
       {/* Hero Section Slider */}

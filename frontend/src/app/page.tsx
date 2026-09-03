@@ -95,7 +95,7 @@ export default function Home() {
             quality={100}
           />
         </div>
-        <p className="text-sm md:text-base lg:text-lg font-bold text-gray-800 tracking-wide text-center z-20 mt-1 animate-pulse">
+        <p className="text-sm md:text-base lg:text-lg font-bold text-pink-600 tracking-wide text-center z-20 mt-1 animate-blink">
           &quot;Wholesale supplier in Delhi, Haryana, Punjab, Jammu Kashmir, Kerala and all over India&quot;
         </p>
       </div>

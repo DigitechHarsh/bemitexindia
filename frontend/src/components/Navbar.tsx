@@ -18,12 +18,12 @@ export default function Navbar() {
           <div className="flex md:hidden w-full items-center justify-between">
             {/* Left: Logo */}
             <Link href="/" className="group block hover:scale-105 transition-transform flex-shrink-0 mr-4">
-              <div className="relative w-32 h-16 overflow-hidden">
+              <div className="relative w-28 h-12">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
-                  className="object-contain mix-blend-multiply scale-125 md:scale-150 origin-center"
+                  className="object-contain mix-blend-multiply"
                   priority
                 />
               </div>
@@ -47,14 +47,14 @@ export default function Navbar() {
           <div className="hidden md:flex w-full items-center justify-between">
             
             {/* Left: Logo */}
-            <div className="flex-shrink-0 flex items-center pr-8 overflow-hidden py-1">
+            <div className="flex-shrink-0 flex items-center pr-4">
               <Link href="/" className="group block hover:scale-105 transition-transform">
-                <div className="relative w-40 h-16 md:w-48 md:h-20 overflow-hidden">
+                <div className="relative w-36 h-14 md:w-44 md:h-16">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"
                     fill
-                    className="object-contain mix-blend-multiply scale-125 md:scale-150 origin-center"
+                    className="object-contain mix-blend-multiply"
                     priority
                   />
                 </div>

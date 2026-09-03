@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ArrowLeft, MessageCircle, Ruler, Info, Package, Loader2 } from "lucide-react";
+import { ArrowLeft, Ruler, Info, Package, Loader2 } from "lucide-react";
+import WhatsappIcon from "@/components/WhatsappIcon";
 
 // Dummy data for initial dev
 const dummyProduct = { 
@@ -174,7 +175,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 rel="noopener noreferrer"
                 className="w-full bg-[#25D366] text-white font-bold text-lg py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-colors shadow-lg"
               >
-                <MessageCircle size={24} /> Inquire on WhatsApp
+                <WhatsappIcon size={24} /> Inquire on WhatsApp
               </a>
               <Link 
                 href={`/inquiry?product=${product.slug}`}

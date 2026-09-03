@@ -24,20 +24,13 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Desktop Layout: Centered with everything close together */}
-          <div className="hidden md:flex w-full items-center justify-center gap-12">
+          {/* Desktop Layout: Logo Left, Nav Middle, Action Right */}
+          <div className="hidden md:flex w-full items-center justify-between">
             
-            {/* Desktop Left Nav */}
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Home</Link>
-              <Link href="/products" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Catalog</Link>
-              <Link href="/how-it-works" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">How It Works</Link>
-            </div>
-
-            {/* Center Overhanging Logo */}
-            <div className="relative z-50 flex items-center justify-center w-32 h-full">
-              <Link href="/" className="group block hover:scale-105 transition-transform absolute -mt-1 md:-mt-2">
-                <div className="relative w-28 h-28 md:w-36 md:h-36">
+            {/* Left: Overhanging Logo */}
+            <div className="flex-shrink-0 relative z-50 flex items-center">
+              <Link href="/" className="group block hover:scale-105 transition-transform absolute -top-12 left-0">
+                <div className="relative w-36 h-36">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"
@@ -46,12 +39,21 @@ export default function Navbar() {
                   />
                 </div>
               </Link>
+              {/* Spacer so nav items don't overlap the absolute logo */}
+              <div className="w-40"></div>
             </div>
 
-            {/* Desktop Right Nav */}
-            <div className="flex items-center space-x-8">
+            {/* Middle: Navigation Links */}
+            <div className="flex items-center justify-center space-x-8 flex-1">
+              <Link href="/" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Home</Link>
+              <Link href="/products" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Catalog</Link>
+              <Link href="/how-it-works" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">How It Works</Link>
               <Link href="/about" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">About Us</Link>
               <Link href="/contact" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Contact</Link>
+            </div>
+
+            {/* Right: Action Button */}
+            <div className="flex-shrink-0 flex items-center">
               <Link
                 href="/inquiry"
                 className="bg-bemitex-maroon text-white px-6 py-2 rounded-md font-semibold hover:bg-bemitex-dark transition-colors shadow-sm hover:shadow flex items-center gap-2"

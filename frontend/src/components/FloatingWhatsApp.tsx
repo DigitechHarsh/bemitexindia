@@ -1,25 +1,43 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import WhatsappIcon from "@/components/WhatsappIcon";
 
 export default function FloatingWhatsApp() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Show after scrolling down a bit
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
   return (
-    <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 1, type: "spring", stiffness: 200 }}
-      className="fixed bottom-6 right-6 z-50"
-    >
-      <a
-        href="https://wa.me/919876543210?text=Hi Bemitex India, I am interested in wholesale/bulk purchasing."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-xl hover:bg-green-600 hover:scale-110 transition-all duration-300"
-        title="Chat on WhatsApp"
-      >
-        <MessageCircle size={32} />
-      </a>
-    </motion.div>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.a
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          href="https://wa.me/919876543210" // Replace with real WhatsApp number
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-shadow flex items-center justify-center"
+          aria-label="Chat on WhatsApp"
+        >
+          <WhatsappIcon size={32} />
+        </motion.a>
+      )}
+    </AnimatePresence>
   );
 }

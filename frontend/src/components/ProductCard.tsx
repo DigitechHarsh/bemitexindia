@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import WhatsappIcon from "@/components/WhatsappIcon";
 
 interface ProductCardProps {
   product: {
@@ -71,7 +71,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors shadow-sm hover:shadow-md"
             title="Inquire on WhatsApp"
           >
-            <MessageCircle size={20} />
+            <WhatsappIcon size={20} />
           </a>
         </div>
       </div>

@@ -12,18 +12,18 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 md:h-24 relative">
+        <div className="flex justify-between items-center h-16 md:h-20 relative">
           
           {/* Mobile Layout (Visible only on small screens) */}
           <div className="flex md:hidden w-full items-center justify-between">
             {/* Left: Logo */}
             <Link href="/" className="group block hover:scale-105 transition-transform flex-shrink-0 mr-4">
-              <div className="relative w-32 h-16">
+              <div className="relative w-32 h-16 overflow-hidden">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
-                  className="object-contain mix-blend-multiply"
+                  className="object-contain mix-blend-multiply scale-125 md:scale-150 origin-center"
                   priority
                 />
               </div>
@@ -47,14 +47,14 @@ export default function Navbar() {
           <div className="hidden md:flex w-full items-center justify-between">
             
             {/* Left: Logo */}
-            <div className="flex-shrink-0 flex items-center pr-8">
+            <div className="flex-shrink-0 flex items-center pr-8 overflow-hidden py-1">
               <Link href="/" className="group block hover:scale-105 transition-transform">
-                <div className="relative w-40 h-16 md:w-48 md:h-20">
+                <div className="relative w-40 h-16 md:w-48 md:h-20 overflow-hidden">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"
                     fill
-                    className="object-contain mix-blend-multiply"
+                    className="object-contain mix-blend-multiply scale-125 md:scale-150 origin-center"
                     priority
                   />
                 </div>

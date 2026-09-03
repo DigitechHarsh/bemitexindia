@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Truck, Globe, Video, ShieldCheck, ArrowRight, Star, CheckCircle, Package } from "lucide-react";
+import TextLogo from "@/components/TextLogo";
 
 export default function Home() {
   const trustFeatures = [
@@ -82,6 +83,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full overflow-hidden">
+      {/* Banner Text (Between Navbar and Hero) */}
+      <div className="w-full bg-white py-4 md:py-8 flex justify-center items-center border-b border-t border-gray-100 shadow-sm z-10 relative">
+        <TextLogo />
+      </div>
+
       {/* Hero Section Slider */}
       <section className="relative h-[80vh] md:h-[90vh] bg-white flex items-center overflow-hidden">
         <AnimatePresence mode="wait">

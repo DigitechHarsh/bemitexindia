@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, PhoneCall } from "lucide-react";
-import TextLogo from "@/components/TextLogo";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
@@ -19,7 +18,15 @@ export default function Navbar() {
           <div className="flex md:hidden w-full items-center justify-between">
             {/* Left: Logo */}
             <Link href="/" className="group block hover:scale-105 transition-transform flex-shrink-0 mr-4">
-              <TextLogo />
+              <div className="relative w-32 h-16">
+                <Image
+                  src="/logo.jpg"
+                  alt="Bemitex Logo"
+                  fill
+                  className="object-contain mix-blend-multiply"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Right: Phone & Menu */}
@@ -42,7 +49,15 @@ export default function Navbar() {
             {/* Left: Logo */}
             <div className="flex-shrink-0 flex items-center pr-8">
               <Link href="/" className="group block hover:scale-105 transition-transform">
-                <TextLogo />
+                <div className="relative w-40 h-16 md:w-48 md:h-20">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Bemitex Logo"
+                    fill
+                    className="object-contain mix-blend-multiply"
+                    priority
+                  />
+                </div>
               </Link>
             </div>
 

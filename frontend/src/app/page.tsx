@@ -105,10 +105,10 @@ export default function Home() {
       </div>
 
       {/* Hero Section Slider */}
-      <section className="relative flex flex-col md:block h-auto md:h-[85vh] lg:h-[90vh] bg-white overflow-hidden pb-16 md:pb-0">
+      <section className="relative h-[70vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] bg-white flex items-center overflow-hidden">
         
-        {/* Image Background (Top on mobile, absolute full-cover on desktop) */}
-        <div className="relative w-full h-[40vh] min-h-[300px] sm:h-[50vh] md:absolute md:inset-0 md:h-full z-0 bg-gray-50">
+        {/* Image Background */}
+        <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -122,16 +122,17 @@ export default function Home() {
                 src={heroSlides[currentSlide].image}
                 alt={heroSlides[currentSlide].title}
                 fill
-                className="object-cover md:object-cover object-right md:object-center"
+                className="object-cover object-right md:object-center"
                 priority
               />
-              <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent w-full md:w-2/3"></div>
+              {/* Gradient overlay visible on all screens to make text readable */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent w-[85%] sm:w-[75%] md:w-2/3"></div>
             </motion.div>
           </AnimatePresence>
         </div>
         
-        {/* Text Content (Bottom on mobile, overlay on desktop) */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 md:py-0 md:h-full flex items-center bg-white md:bg-transparent">
+        {/* Text Content Overlay */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatePresence mode="wait">
             <motion.div 
               key={currentSlide}
@@ -139,26 +140,26 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.6 }}
-              className="max-w-2xl w-full"
+              className="max-w-[85%] sm:max-w-md md:max-w-2xl w-full"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-bemitex-dark mb-3 md:mb-6 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-bemitex-dark mb-2 md:mb-6 leading-tight">
                 <span className={heroSlides[currentSlide].titleColor}>
                   {heroSlides[currentSlide].title}
                 </span>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-6 md:mb-8 font-medium drop-shadow-sm">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-800 mb-4 md:mb-8 font-semibold drop-shadow-sm">
                 {heroSlides[currentSlide].subtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                <Link href={heroSlides[currentSlide].ctaLink} className="bg-bemitex-maroon text-white font-bold text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-2 shadow-lg hover:scale-105 transform transition-transform">
-                  {heroSlides[currentSlide].ctaText} <ArrowRight size={20} />
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
+                <Link href={heroSlides[currentSlide].ctaLink} className="bg-bemitex-maroon text-white font-bold text-sm md:text-lg px-4 md:px-8 py-2 md:py-4 rounded hover:bg-bemitex-dark transition-colors text-center inline-flex justify-center items-center gap-1.5 md:gap-2 shadow-lg hover:scale-105 transform transition-transform">
+                  {heroSlides[currentSlide].ctaText} <ArrowRight size={16} className="md:w-5 md:h-5" />
                 </Link>
-                <Link href="/video-call" className="bg-white md:bg-white/80 backdrop-blur-sm border-2 border-bemitex-dark text-bemitex-dark font-bold text-base md:text-lg px-6 md:px-8 py-3 md:py-4 rounded hover:bg-gray-50 transition-colors text-center shadow-sm">
+                <Link href="/video-call" className="bg-white/80 backdrop-blur-sm border border-bemitex-dark text-bemitex-dark font-bold text-sm md:text-lg px-4 md:px-8 py-2 md:py-4 rounded hover:bg-gray-50 transition-colors text-center shadow-sm">
                   Book Video Call
                 </Link>
               </div>
-              <div className="mt-6 md:mt-8">
-                <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-3 py-1.5 md:px-4 md:py-2 rounded text-xs md:text-sm uppercase tracking-wider shadow-md">
+              <div className="mt-4 md:mt-8">
+                <span className="inline-block bg-bemitex-gold text-bemitex-dark font-bold px-2 py-1 md:px-4 md:py-2 rounded text-[10px] md:text-sm uppercase tracking-wider shadow-md">
                   B2B Wholesale Only
                 </span>
               </div>

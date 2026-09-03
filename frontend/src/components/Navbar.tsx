@@ -27,20 +27,19 @@ export default function Navbar() {
           {/* Desktop Layout: Logo Left, Nav Middle, Action Right */}
           <div className="hidden md:flex w-full items-center justify-between">
             
-            {/* Left: Overhanging Logo */}
-            <div className="flex-shrink-0 relative z-50 flex items-center">
-              <Link href="/" className="group block hover:scale-105 transition-transform absolute -top-12 left-0">
-                <div className="relative w-36 h-36">
+            {/* Left: Logo */}
+            <div className="flex-shrink-0 flex items-center">
+              <Link href="/" className="group block hover:scale-105 transition-transform">
+                <div className="relative w-40 h-16 md:w-48 md:h-20">
                   <Image
                     src="/logo.jpg"
                     alt="Bemitex Logo"
                     fill
                     className="object-contain mix-blend-multiply"
+                    priority
                   />
                 </div>
               </Link>
-              {/* Spacer so nav items don't overlap the absolute logo */}
-              <div className="w-40"></div>
             </div>
 
             {/* Middle: Navigation Links */}
@@ -68,12 +67,13 @@ export default function Navbar() {
           {/* Mobile Center Logo (Visible only on mobile) */}
           <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center">
             <Link href="/" className="group block">
-              <div className="relative w-28 h-28">
+              <div className="relative w-32 h-16">
                 <Image
                   src="/logo.jpg"
                   alt="Bemitex Logo"
                   fill
                   className="object-contain mix-blend-multiply"
+                  priority
                 />
               </div>
             </Link>

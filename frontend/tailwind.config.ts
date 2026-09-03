@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       animation: {
         blink: 'blink 1s step-start infinite',
-        marquee: 'marquee 20s linear infinite',
+        marquee: 'marquee 12s linear infinite',
       },
       keyframes: {
         blink: {

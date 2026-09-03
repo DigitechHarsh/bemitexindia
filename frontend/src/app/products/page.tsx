@@ -51,7 +51,17 @@ function CatalogContent() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
+    // Sync URL parameter with state
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    } else {
+      setSelectedCategory("all");
+    }
+  }, [initialCategory]);
+
+  useEffect(() => {
     // Simulate API Call
+    setLoading(true);
     setTimeout(() => {
       setCategories(dummyCategories);
       
@@ -63,7 +73,7 @@ function CatalogContent() {
         ));
       }
       setLoading(false);
-    }, 800);
+    }, 400); // reduced timeout for better UX
   }, [selectedCategory]);
 
   return (

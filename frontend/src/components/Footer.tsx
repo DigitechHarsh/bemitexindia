@@ -47,6 +47,7 @@ export default function Footer() {
               <li><Link href="/products?category=salwar-suits" className="text-gray-500 hover:text-bemitex-maroon transition-colors">Designer Salwar Suits</Link></li>
               <li><Link href="/products?category=sarees" className="text-gray-500 hover:text-bemitex-maroon transition-colors">Traditional Sarees</Link></li>
               <li><Link href="/products?category=gowns" className="text-gray-500 hover:text-bemitex-maroon transition-colors">Partywear Gowns</Link></li>
+              <li><Link href="/products?category=dress-materials" className="text-gray-500 hover:text-bemitex-maroon transition-colors">Dress Materials</Link></li>
             </ul>
           </div>
 

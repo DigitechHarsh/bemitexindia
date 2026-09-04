@@ -1,11 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import WhatsappIcon from "@/components/WhatsappIcon";
 
 export default function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+
+  // Do not show on Admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   useEffect(() => {
     // Show after scrolling down a bit

@@ -3,11 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, PhoneCall } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Do not render website Navbar on Admin pages
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">

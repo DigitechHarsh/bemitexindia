@@ -14,7 +14,9 @@ import {
   AlertCircle, 
   Package, 
   Image as ImageIcon,
-  ExternalLink
+  ExternalLink,
+  FileDown,
+  Printer
 } from "lucide-react";
 
 interface Product {
@@ -282,12 +284,25 @@ export default function AdminProducts() {
             </p>
           </div>
 
-          <button
-            onClick={handleOpenAddModal}
-            className="w-full md:w-auto bg-bemitex-maroon hover:bg-bemitex-dark text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition shadow-md active:scale-95"
-          >
-            <Plus size={18} /> Add New Product
-          </button>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-5 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition shadow-sm active:scale-95"
+              title="Generate and print/save wholesale PDF catalog for buyers"
+            >
+              <FileDown size={18} className="text-amber-700" />
+              <span>Download PDF Catalog</span>
+            </button>
+
+            <button
+              onClick={handleOpenAddModal}
+              className="bg-bemitex-maroon hover:bg-bemitex-dark text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition shadow-md active:scale-95"
+            >
+              <Plus size={18} />
+              <span>Add New Product</span>
+            </button>
+          </div>
         </div>
 
         {/* Search & Category Filter Bar */}
@@ -656,6 +671,68 @@ export default function AdminProducts() {
           </div>
         </div>
       )}
+
+      {/* Hidden Print-Ready Full Wholesale Catalog Document */}
+      <div className="hidden print:block fixed inset-0 bg-white z-[9999] p-8 text-black font-sans">
+        {/* Header */}
+        <div className="flex justify-between items-start pb-6 border-b-2 border-amber-800 mb-6">
+          <div>
+            <h1 className="text-3xl font-serif font-bold text-amber-950 tracking-wider">BEMITEX INDIA</h1>
+            <p className="text-xs uppercase tracking-widest text-amber-800 font-semibold mt-0.5">
+              Complete Surat Wholesale Ethnic Wear Catalog & Rate Sheet
+            </p>
+            <p className="text-[11px] text-gray-600 mt-1">
+              Surat Textile Market, Ring Road, Surat, Gujarat | WhatsApp: +91 98765 43210 | www.bemitex.com
+            </p>
+          </div>
+          <div className="text-right bg-amber-50 p-3 rounded-xl border border-amber-200">
+            <span className="text-[10px] font-bold text-amber-900 block uppercase">Wholesale Price List</span>
+            <span className="text-xs font-mono text-gray-600">Total Products: {products.length}</span>
+            <div className="text-[10px] text-gray-500 mt-0.5">Generated: {new Date().toLocaleDateString('en-IN')}</div>
+          </div>
+        </div>
+
+        {/* Product Cards Grid */}
+        <div className="grid grid-cols-2 gap-6">
+          {products.map((p) => {
+            const imgSrc = p.main_image || (p.images && p.images[0]) || "/products/prod_anarkali.jpg";
+            return (
+              <div key={p.id} className="border border-gray-300 rounded-xl p-3 flex gap-4 break-inside-avoid">
+                <div className="w-28 h-36 rounded-lg overflow-hidden bg-gray-100 shrink-0 border border-gray-200">
+                  <img src={imgSrc} alt={p.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">
+                      {p.category_name || "Ethnic Wear"}
+                    </span>
+                    <h3 className="font-bold text-sm text-gray-900 leading-snug line-clamp-2">{p.name}</h3>
+                    <p className="text-xs text-gray-600 mt-1">
+                      Fabric: <span className="font-semibold text-gray-800">{p.fabric || "Rayon / Silk"}</span>
+                    </p>
+                  </div>
+                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-gray-500 block">Wholesale Rate</span>
+                      <span className="text-sm font-bold text-amber-900">₹{p.price_per_piece} /pc</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-gray-500 block">Min. Order</span>
+                      <span className="text-xs font-bold text-gray-800">{p.moq} pcs set</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 pt-4 border-t border-gray-200 flex justify-between text-[10px] text-gray-500">
+          <span>Official Surat Loom Direct Rates • Bemitex India</span>
+          <span>Payment: 100% Advance • All India Transport Logistics Available</span>
+        </div>
+      </div>
 
     </div>
   );

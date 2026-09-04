@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { 
   LayoutDashboard, 
+  Layers,
   Package, 
   MessageSquare, 
   Video, 
@@ -30,6 +31,7 @@ export default function AdminLayout({
 
   const menuItems = [
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, href: "/admin" },
+    { name: "Categories", icon: <Layers size={20} />, href: "/admin/categories" },
     { name: "Products", icon: <Package size={20} />, href: "/admin/products" },
     { name: "Inquiries", icon: <MessageSquare size={20} />, href: "/admin/inquiries" },
     { name: "Video Bookings", icon: <Video size={20} />, href: "/admin/bookings" },

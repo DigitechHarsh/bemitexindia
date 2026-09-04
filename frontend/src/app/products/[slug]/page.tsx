@@ -20,6 +20,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import JsonLd from "@/components/JsonLd";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import RelatedProducts from "@/components/RelatedProducts";
+import DownloadProductPdf from "@/components/DownloadProductPdf";
 import { fetchProductBySlug, fetchProducts } from "@/lib/api";
 
 interface Product {
@@ -441,6 +442,9 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               >
                 <span>Request Custom Bulk Quote / Proforma Invoice</span>
               </Link>
+
+              {/* Download Wholesale PDF Catalog Button */}
+              <DownloadProductPdf product={product} />
             </div>
 
             {/* Trust Sourcing Guarantee */}

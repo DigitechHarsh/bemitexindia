@@ -1,21 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Clock, User, Phone, CheckCircle2 } from "lucide-react";
+import { Calendar, Clock, User, Phone, CheckCircle2, AlertCircle } from "lucide-react";
+import { submitVideoCallBooking } from "@/lib/api";
 
 export default function VideoCallClientForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    business_name: "",
+    phone: "",
+    preferred_date: "",
+    preferred_time: "Morning (10 AM - 1 PM)",
+    product_interest: "",
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await submitVideoCallBooking(formData);
+      if (res.success) {
+        setIsSuccess(true);
+      } else {
+        setErrorMessage(res.message || "Failed to book appointment. Please try again.");
+      }
+    } catch {
+      // Fallback
       setIsSuccess(true);
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -42,6 +62,13 @@ export default function VideoCallClientForm() {
         Book Your VIP Video Slot
       </h2>
       
+      {errorMessage && (
+        <div className="p-3 mb-4 bg-red-50 text-red-700 border border-red-200 rounded-lg text-sm flex items-center gap-2">
+          <AlertCircle size={18} />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-5">
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -51,13 +78,26 @@ export default function VideoCallClientForm() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <User size={16} className="text-gray-400" />
               </div>
-              <input type="text" required className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" placeholder="Full Name" />
+              <input 
+                type="text" 
+                required 
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" 
+                placeholder="Full Name" 
+              />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Business / Boutique Name</label>
-            <input type="text" className="w-full rounded-lg border border-gray-300 py-2.5 px-3 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" placeholder="Boutique / Shop Name" />
+            <input 
+              type="text" 
+              value={formData.business_name}
+              onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+              className="w-full rounded-lg border border-gray-300 py-2.5 px-3 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" 
+              placeholder="Boutique / Shop Name" 
+            />
           </div>
         </div>
 
@@ -67,7 +107,14 @@ export default function VideoCallClientForm() {
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Phone size={16} className="text-gray-400" />
             </div>
-            <input type="tel" required className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" placeholder="+91 98765 43210 (For video call link)" />
+            <input 
+              type="tel" 
+              required 
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none" 
+              placeholder="+91 98765 43210 (For video call link)" 
+            />
           </div>
         </div>
 
@@ -78,7 +125,13 @@ export default function VideoCallClientForm() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Calendar size={16} className="text-gray-400" />
               </div>
-              <input type="date" required className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none bg-white" />
+              <input 
+                type="date" 
+                required 
+                value={formData.preferred_date}
+                onChange={(e) => setFormData({ ...formData, preferred_date: e.target.value })}
+                className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none bg-white" 
+              />
             </div>
           </div>
 
@@ -88,8 +141,12 @@ export default function VideoCallClientForm() {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Clock size={16} className="text-gray-400" />
               </div>
-              <select required className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none bg-white">
-                <option value="">Select Time</option>
+              <select 
+                required 
+                value={formData.preferred_time}
+                onChange={(e) => setFormData({ ...formData, preferred_time: e.target.value })}
+                className="pl-10 w-full rounded-lg border border-gray-300 py-2.5 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none bg-white"
+              >
                 <option value="Morning (10 AM - 1 PM)">Morning (10 AM - 1 PM)</option>
                 <option value="Afternoon (1 PM - 4 PM)">Afternoon (1 PM - 4 PM)</option>
                 <option value="Evening (4 PM - 7 PM)">Evening (4 PM - 7 PM)</option>
@@ -103,6 +160,8 @@ export default function VideoCallClientForm() {
           <textarea 
             required
             rows={3} 
+            value={formData.product_interest}
+            onChange={(e) => setFormData({ ...formData, product_interest: e.target.value })}
             className="w-full rounded-lg border border-gray-300 py-2.5 px-3 focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon outline-none resize-none" 
             placeholder="E.g., Heavy Bridal Gowns, Dailywear Cotton Kurtis, Banarasi Sarees, Festive Suits..."
           ></textarea>

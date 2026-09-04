@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { Filter, ChevronDown, Loader2 } from "lucide-react";
+import { fetchCategories, fetchProducts } from "@/lib/api";
 
 interface Product {
   id: number;
@@ -58,21 +59,40 @@ export default function CatalogClient() {
   }, [initialCategory]);
 
   useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setCategories(dummyCategories);
-      
-      if (selectedCategory === "all") {
-        setProducts(dummyProducts);
-      } else {
-        setProducts(dummyProducts.filter(p => 
-          p.category_name.toLowerCase().replace(/\s+/g, '-') === selectedCategory
-        ));
-      }
-      setLoading(false);
-    }, 200);
+    async function loadData() {
+      setLoading(true);
+      try {
+        const [cats, prods] = await Promise.all([
+          fetchCategories(),
+          fetchProducts(selectedCategory === "all" ? undefined : selectedCategory),
+        ]);
 
-    return () => clearTimeout(timer);
+        if (cats && cats.length > 0) {
+          setCategories(cats);
+        } else {
+          setCategories(dummyCategories);
+        }
+
+        if (prods && prods.length > 0) {
+          setProducts(prods);
+        } else {
+          if (selectedCategory === "all") {
+            setProducts(dummyProducts);
+          } else {
+            setProducts(dummyProducts.filter(p => 
+              p.category_name.toLowerCase().replace(/\s+/g, '-') === selectedCategory
+            ));
+          }
+        }
+      } catch {
+        setCategories(dummyCategories);
+        setProducts(dummyProducts);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
   }, [selectedCategory]);
 
   return (

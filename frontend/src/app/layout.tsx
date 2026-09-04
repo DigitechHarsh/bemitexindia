@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/JsonLd";
@@ -151,6 +152,7 @@ export default function RootLayout({
         <JsonLd data={globalOrganizationSchema} />
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased min-h-screen flex flex-col font-sans`}>
+        <AnnouncementBar />
         <Navbar />
         <main className="flex-grow">
           {children}

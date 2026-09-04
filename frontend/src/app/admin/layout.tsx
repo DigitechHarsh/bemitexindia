@@ -7,6 +7,7 @@ import {
   LayoutDashboard, 
   Layers,
   Package, 
+  Megaphone,
   MessageSquare, 
   Video, 
   LogOut, 
@@ -33,6 +34,7 @@ export default function AdminLayout({
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, href: "/admin" },
     { name: "Categories", icon: <Layers size={20} />, href: "/admin/categories" },
     { name: "Products", icon: <Package size={20} />, href: "/admin/products" },
+    { name: "Announcement Bar", icon: <Megaphone size={20} />, href: "/admin/announcement" },
     { name: "Inquiries", icon: <MessageSquare size={20} />, href: "/admin/inquiries" },
     { name: "Video Bookings", icon: <Video size={20} />, href: "/admin/bookings" },
   ];

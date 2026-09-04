@@ -419,22 +419,12 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 <span>Inquire Wholesale on WhatsApp</span>
               </a>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <Link
-                  href="/video-call"
-                  className="py-3.5 px-4 bg-bemitex-dark hover:bg-gray-800 text-white font-bold text-sm rounded-2xl flex items-center justify-center gap-2 transition text-center shadow-md"
-                >
-                  <Video size={18} className="text-bemitex-gold" />
-                  <span>Book Video Call</span>
-                </Link>
-
-                <Link
-                  href={`/inquiry?product=${encodeURIComponent(product.slug)}`}
-                  className="py-3.5 px-4 bg-white hover:bg-gray-50 text-bemitex-dark border border-gray-300 font-bold text-sm rounded-2xl flex items-center justify-center gap-2 transition text-center shadow-sm"
-                >
-                  <span>Request Proforma Invoice</span>
-                </Link>
-              </div>
+              <Link
+                href={`/inquiry?product=${encodeURIComponent(product.slug)}`}
+                className="w-full py-3.5 px-4 bg-bemitex-dark hover:bg-gray-800 text-white font-bold text-sm sm:text-base rounded-2xl flex items-center justify-center gap-2 transition text-center shadow-md"
+              >
+                <span>Request Custom Bulk Quote / Proforma Invoice</span>
+              </Link>
             </div>
 
             {/* Trust Sourcing Guarantee */}

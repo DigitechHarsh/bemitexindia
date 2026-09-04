@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Maximize2, X, ShieldCheck, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Maximize2, X, ShieldCheck, Sparkles } from "lucide-react";
 
 interface ImageItem {
   image_url: string;
@@ -37,11 +37,39 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
   };
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col-reverse md:flex-row gap-4 items-start w-full">
+      
+      {/* Side Vertical Thumbnails on Desktop / Horizontal on Mobile */}
+      {normalizedImages.length > 1 && (
+        <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:max-h-[580px] w-full md:w-24 shrink-0 pb-2 md:pb-0 scrollbar-thin">
+          {normalizedImages.map((url, idx) => (
+            <button 
+              key={idx}
+              onClick={() => setActiveImage(idx)}
+              type="button"
+              aria-label={`View ${productName} image ${idx + 1}`}
+              className={`relative w-18 h-24 sm:w-20 sm:h-28 md:w-24 md:h-32 rounded-2xl overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
+                activeImage === idx 
+                  ? 'border-bemitex-maroon ring-2 ring-bemitex-maroon/30 scale-105 shadow-md opacity-100' 
+                  : 'border-gray-200 opacity-60 hover:opacity-100'
+              }`}
+            >
+              <Image
+                src={url}
+                alt={`${productName} thumbnail ${idx + 1}`}
+                fill
+                sizes="100px"
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Main Image Viewport */}
       <div 
         onClick={() => setIsZoomOpen(true)}
-        className="relative h-[420px] sm:h-[520px] md:h-[620px] w-full rounded-3xl overflow-hidden bg-gray-50 border border-gray-200/80 shadow-md group cursor-zoom-in"
+        className="relative h-[420px] sm:h-[500px] md:h-[580px] flex-1 w-full rounded-3xl overflow-hidden bg-gray-50 border border-gray-200/80 shadow-sm group cursor-zoom-in"
       >
         <Image
           src={activeImageUrl}
@@ -100,33 +128,6 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
           </div>
         )}
       </div>
-
-      {/* Thumbnails Row */}
-      {normalizedImages.length > 1 && (
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
-          {normalizedImages.map((url, idx) => (
-            <button 
-              key={idx}
-              onClick={() => setActiveImage(idx)}
-              type="button"
-              aria-label={`View ${productName} image ${idx + 1}`}
-              className={`relative w-20 h-24 sm:w-24 sm:h-32 rounded-2xl overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
-                activeImage === idx 
-                  ? 'border-bemitex-maroon ring-2 ring-bemitex-maroon/30 scale-105 shadow-md' 
-                  : 'border-gray-200 opacity-60 hover:opacity-100'
-              }`}
-            >
-              <Image
-                src={url}
-                alt={`${productName} thumbnail ${idx + 1}`}
-                fill
-                sizes="100px"
-                className="object-cover"
-              />
-            </button>
-          ))}
-        </div>
-      )}
 
       {/* Fullscreen Lightbox Zoom Modal */}
       {isZoomOpen && (

@@ -290,15 +290,44 @@ export default function AdminDashboard() {
               </div>
             </div>
 
+            {/* Live Hover Stat Banner */}
+            <div className="mb-4 px-3.5 py-2.5 bg-gradient-to-r from-gray-50 to-amber-50/40 rounded-xl border border-gray-200/80 text-xs transition-all">
+              {activeBar !== null && dynamicTimelineData[activeBar] ? (
+                <div className="flex flex-wrap items-center justify-between w-full gap-2 animate-in fade-in duration-150">
+                  <span className="font-bold text-bemitex-dark flex items-center gap-1.5">
+                    <CalendarIcon size={14} className="text-bemitex-maroon" />
+                    {dynamicTimelineData[activeBar].date} ({dynamicTimelineData[activeBar].displayDate})
+                  </span>
+                  <div className="flex items-center gap-4">
+                    <span className="text-bemitex-maroon flex items-center gap-1.5 font-medium">
+                      <span className="w-2.5 h-2.5 rounded-full bg-bemitex-maroon inline-block"></span>
+                      Wholesale Inquiries: <strong className="text-sm font-bold text-bemitex-dark">{dynamicTimelineData[activeBar].inquiries} leads</strong>
+                    </span>
+                    <span className="text-amber-700 flex items-center gap-1.5 font-medium">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                      Video Calls: <strong className="text-sm font-bold text-bemitex-dark">{dynamicTimelineData[activeBar].bookings} bookings</strong>
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-gray-500 flex items-center justify-between w-full text-xs">
+                  <span className="flex items-center gap-1.5">
+                    <Filter size={13} className="text-bemitex-maroon" /> Hover on any date bar below to inspect lead counts
+                  </span>
+                  <span className="font-semibold text-gray-400">Total {dynamicTimelineData.length} Days Filtered</span>
+                </div>
+              )}
+            </div>
+
             {/* Dynamic Date Bars */}
-            <div className="pt-4 pb-2">
+            <div className="pt-8 pb-2">
               {dynamicTimelineData.length === 0 ? (
                 <div className="h-56 flex flex-col items-center justify-center text-gray-400 text-sm">
                   <CalendarIcon size={36} className="mb-2 text-gray-300" />
                   <p>Please select a valid date range to display analytics.</p>
                 </div>
               ) : (
-                <div className="flex items-end justify-between gap-1 sm:gap-2.5 h-56 px-1 overflow-x-auto">
+                <div className="flex items-end justify-between gap-1 sm:gap-2.5 h-64 px-1">
                   {dynamicTimelineData.map((item, idx) => {
                     const inqHeight = (item.inquiries / maxInquiries) * 100;
                     const bookHeight = (item.bookings / maxInquiries) * 100;
@@ -311,38 +340,62 @@ export default function AdminDashboard() {
                         onMouseEnter={() => setActiveBar(idx)}
                         onMouseLeave={() => setActiveBar(null)}
                       >
-                        {/* Interactive Tooltip */}
+                        {/* Numbers Directly Above Bars on Hover */}
                         {isHovered && (
-                          <div className="absolute -top-16 z-30 bg-bemitex-dark text-white text-[11px] rounded-xl py-2 px-3.5 shadow-2xl whitespace-nowrap border border-gray-700 animate-in fade-in zoom-in duration-150 pointer-events-none">
-                            <p className="font-bold text-bemitex-gold flex items-center gap-1">
-                              <CalendarIcon size={12} /> {item.date} ({item.displayDate})
-                            </p>
-                            <p className="text-gray-200 mt-0.5">📥 Wholesale Inquiries: <span className="font-bold text-white">{item.inquiries}</span></p>
-                            <p className="text-gray-200">📹 Video Call Bookings: <span className="font-bold text-white">{item.bookings}</span></p>
+                          <div className="absolute bottom-[calc(100%-8px)] z-30 flex flex-col items-center pointer-events-none animate-in fade-in zoom-in duration-150">
+                            <div className="bg-bemitex-dark text-white text-[10px] sm:text-[11px] font-bold rounded-lg py-1 px-2.5 shadow-xl whitespace-nowrap border border-gray-700 flex items-center gap-2 mb-1">
+                              <span className="text-rose-300 flex items-center gap-0.5">
+                                📥 {item.inquiries}
+                              </span>
+                              <span className="text-gray-400">|</span>
+                              <span className="text-yellow-300 flex items-center gap-0.5">
+                                📹 {item.bookings}
+                              </span>
+                            </div>
+                            <div className="w-2 h-2 bg-bemitex-dark rotate-45 -mt-2 border-r border-b border-gray-700"></div>
                           </div>
                         )}
 
                         {/* Bar Cluster */}
-                        <div className="w-full flex items-end justify-center gap-0.5 sm:gap-1 h-full">
+                        <div className="w-full flex items-end justify-center gap-0.5 sm:gap-1.5 h-full">
                           {/* Inquiries Bar */}
-                          <div
-                            style={{ height: `${Math.max(inqHeight, 8)}%` }}
-                            className={`w-full max-w-[16px] sm:max-w-[20px] rounded-t-lg transition-all duration-300 ${
-                              isHovered ? "bg-bemitex-maroon shadow-lg scale-y-105" : "bg-bemitex-maroon/80 hover:bg-bemitex-maroon"
-                            }`}
-                          ></div>
+                          <div className="w-full max-w-[16px] sm:max-w-[22px] flex flex-col items-center justify-end h-full">
+                            {isHovered && (
+                              <span className="text-[10px] font-bold text-bemitex-maroon mb-1 animate-pulse">
+                                {item.inquiries}
+                              </span>
+                            )}
+                            <div
+                              style={{ height: `${Math.max(inqHeight, 10)}%` }}
+                              className={`w-full rounded-t-lg transition-all duration-300 ${
+                                isHovered 
+                                  ? "bg-bemitex-maroon shadow-lg ring-2 ring-bemitex-maroon/30" 
+                                  : "bg-bemitex-maroon/85 hover:bg-bemitex-maroon"
+                              }`}
+                            ></div>
+                          </div>
+
                           {/* Video Bookings Bar */}
-                          <div
-                            style={{ height: `${Math.max(bookHeight, 5)}%` }}
-                            className={`w-full max-w-[16px] sm:max-w-[20px] rounded-t-lg transition-all duration-300 ${
-                              isHovered ? "bg-bemitex-gold shadow-md scale-y-105" : "bg-amber-400/80 hover:bg-amber-400"
-                            }`}
-                          ></div>
+                          <div className="w-full max-w-[16px] sm:max-w-[22px] flex flex-col items-center justify-end h-full">
+                            {isHovered && (
+                              <span className="text-[10px] font-bold text-amber-600 mb-1 animate-pulse">
+                                {item.bookings}
+                              </span>
+                            )}
+                            <div
+                              style={{ height: `${Math.max(bookHeight, 8)}%` }}
+                              className={`w-full rounded-t-lg transition-all duration-300 ${
+                                isHovered 
+                                  ? "bg-amber-400 shadow-md ring-2 ring-amber-400/30" 
+                                  : "bg-amber-400/85 hover:bg-amber-400"
+                              }`}
+                            ></div>
+                          </div>
                         </div>
 
                         {/* Date Label */}
-                        <span className={`text-[10px] sm:text-[11px] mt-2 truncate max-w-[40px] text-center transition-colors ${
-                          isHovered ? "font-bold text-bemitex-maroon" : "text-gray-500"
+                        <span className={`text-[10px] sm:text-[11px] mt-2 truncate max-w-[44px] text-center transition-colors ${
+                          isHovered ? "font-bold text-bemitex-maroon scale-105" : "text-gray-500"
                         }`}>
                           {item.displayDate}
                         </span>
@@ -355,7 +408,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Legend */}
-          <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100 text-xs">
+          <div className="flex flex-wrap items-center justify-between mt-6 pt-4 border-t border-gray-100 text-xs gap-3">
             <div className="flex items-center gap-5">
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 bg-bemitex-maroon rounded-md"></span>
@@ -366,7 +419,7 @@ export default function AdminDashboard() {
                 <span className="text-gray-700 font-medium">Video Shopping Appointments</span>
               </div>
             </div>
-            <span className="text-gray-400 text-[11px]">Hover on any date to see exact stats</span>
+            <span className="text-gray-400 text-[11px]">Exact counts appear on bar hover & live top banner</span>
           </div>
         </div>
 

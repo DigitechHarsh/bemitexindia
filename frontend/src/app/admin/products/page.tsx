@@ -29,6 +29,7 @@ interface Product {
   moq: number;
   price_per_piece: number | string;
   description?: string;
+  catalog_pdf_url?: string;
   is_active: number | boolean;
   main_image?: string;
   images?: string[];
@@ -61,12 +62,14 @@ export default function AdminProducts() {
   const [moq, setMoq] = useState<number>(12);
   const [price, setPrice] = useState<number | string>(450);
   const [description, setDescription] = useState("");
+  const [catalogPdfUrl, setCatalogPdfUrl] = useState("");
   const [isActive, setIsActive] = useState(true);
 
   // Cloudinary & Images State
   const [images, setImages] = useState<string[]>([]);
   const [manualImageUrl, setManualImageUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [isPdfUploading, setIsPdfUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -115,6 +118,7 @@ export default function AdminProducts() {
     setMoq(12);
     setPrice(450);
     setDescription("");
+    setCatalogPdfUrl("");
     setIsActive(true);
     setImages([]);
     setStatusMessage(null);
@@ -131,6 +135,7 @@ export default function AdminProducts() {
     setMoq(p.moq || 12);
     setPrice(p.price_per_piece);
     setDescription(p.description || "");
+    setCatalogPdfUrl(p.catalog_pdf_url || "");
     setIsActive(Boolean(p.is_active));
     setImages(p.main_image ? [p.main_image] : []);
     setStatusMessage(null);
@@ -177,6 +182,37 @@ export default function AdminProducts() {
     setIsUploading(false);
   };
 
+  // Cloudinary PDF Catalog Upload
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsPdfUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", UPLOAD_PRESET);
+
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (data.secure_url) {
+        setCatalogPdfUrl(data.secure_url);
+      } else {
+        const localPdf = URL.createObjectURL(file);
+        setCatalogPdfUrl(localPdf);
+      }
+    } catch (err) {
+      console.error("PDF upload error:", err);
+      const localPdf = URL.createObjectURL(file);
+      setCatalogPdfUrl(localPdf);
+    } finally {
+      setIsPdfUploading(false);
+    }
+  };
+
   // Add Image URL Manually
   const handleAddManualUrl = () => {
     if (!manualImageUrl.trim()) return;
@@ -203,6 +239,7 @@ export default function AdminProducts() {
       moq: Number(moq),
       price_per_piece: Number(price),
       description,
+      catalog_pdf_url: catalogPdfUrl || null,
       is_active: isActive ? 1 : 0,
       images,
     };
@@ -610,6 +647,54 @@ export default function AdminProducts() {
                       </div>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* PDF Catalog / Lookbook File Upload */}
+              <div className="p-4 bg-amber-50/50 rounded-2xl border border-amber-200/70 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-amber-900 uppercase tracking-wider">
+                    📄 Attach Wholesale PDF Catalog / Spec Sheet (Optional)
+                  </label>
+                  {catalogPdfUrl && (
+                    <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                      ✓ PDF Attached
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <label className="flex-1 border-2 border-dashed border-amber-300 hover:border-amber-500 rounded-xl p-3 text-center cursor-pointer bg-white transition flex items-center justify-center gap-2">
+                    <input
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      onChange={handlePdfUpload}
+                      disabled={isPdfUploading}
+                      className="hidden"
+                    />
+                    {isPdfUploading ? (
+                      <span className="text-xs font-semibold text-amber-800 flex items-center gap-2">
+                        <Loader2 size={14} className="animate-spin" /> Uploading PDF...
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold text-amber-900 flex items-center gap-2">
+                        <Upload size={14} /> Upload Product PDF Catalog
+                      </span>
+                    )}
+                  </label>
+
+                  <input
+                    type="url"
+                    value={catalogPdfUrl}
+                    onChange={(e) => setCatalogPdfUrl(e.target.value)}
+                    placeholder="Or paste direct PDF URL (Cloudinary, Drive, etc.)..."
+                    className="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 focus:outline-none focus:border-bemitex-maroon bg-white"
+                  />
+                </div>
+                {catalogPdfUrl && (
+                  <p className="text-[11px] font-mono text-gray-500 line-clamp-1">
+                    File: {catalogPdfUrl}
+                  </p>
                 )}
               </div>
 

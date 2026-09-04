@@ -12,6 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once '../../config/db.php';
 
+// Auto-check and create column if not exists
+try {
+    $pdo->exec("ALTER TABLE products ADD COLUMN catalog_pdf_url VARCHAR(500) NULL");
+} catch(Exception $e) {
+    // Column already exists
+}
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
@@ -46,8 +53,8 @@ if ($method === 'GET') {
         $pdo->beginTransaction();
 
         $stmt = $pdo->prepare("
-            INSERT INTO products (name, slug, category_id, description, fabric, moq, price_per_piece, is_active)
-            VALUES (:name, :slug, :category_id, :description, :fabric, :moq, :price_per_piece, :is_active)
+            INSERT INTO products (name, slug, category_id, description, fabric, moq, price_per_piece, catalog_pdf_url, is_active)
+            VALUES (:name, :slug, :category_id, :description, :fabric, :moq, :price_per_piece, :catalog_pdf_url, :is_active)
         ");
         $stmt->execute([
             ':name' => $data->name,
@@ -57,6 +64,7 @@ if ($method === 'GET') {
             ':fabric' => $data->fabric ?? 'Rayon / Cotton',
             ':moq' => $data->moq ?? 12,
             ':price_per_piece' => $data->price_per_piece,
+            ':catalog_pdf_url' => $data->catalog_pdf_url ?? null,
             ':is_active' => isset($data->is_active) ? (int)$data->is_active : 1
         ]);
 
@@ -96,7 +104,8 @@ if ($method === 'GET') {
         $stmt = $pdo->prepare("
             UPDATE products 
             SET name = :name, category_id = :category_id, description = :description, 
-                fabric = :fabric, moq = :moq, price_per_piece = :price_per_piece, is_active = :is_active
+                fabric = :fabric, moq = :moq, price_per_piece = :price_per_piece, 
+                catalog_pdf_url = :catalog_pdf_url, is_active = :is_active
             WHERE id = :id
         ");
         $stmt->execute([
@@ -106,6 +115,7 @@ if ($method === 'GET') {
             ':fabric' => $data->fabric ?? '',
             ':moq' => $data->moq ?? 12,
             ':price_per_piece' => $data->price_per_piece,
+            ':catalog_pdf_url' => $data->catalog_pdf_url ?? null,
             ':is_active' => isset($data->is_active) ? (int)$data->is_active : 1,
             ':id' => $data->id
         ]);

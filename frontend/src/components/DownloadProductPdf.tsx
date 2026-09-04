@@ -13,6 +13,7 @@ interface ProductPdfProps {
     moq: number;
     price_per_piece: number;
     category_name: string;
+    catalog_pdf_url?: string | null;
     images?: { image_url: string; sort_order?: number }[];
   };
 }
@@ -20,7 +21,13 @@ interface ProductPdfProps {
 export default function DownloadProductPdf({ product }: ProductPdfProps) {
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const handlePrintPdf = () => {
+  const handleDownload = () => {
+    if (product.catalog_pdf_url) {
+      window.open(product.catalog_pdf_url, "_blank");
+      return;
+    }
+
+    // Otherwise generate the branded spec sheet
     setIsGenerating(true);
     setTimeout(() => {
       window.print();
@@ -35,7 +42,7 @@ export default function DownloadProductPdf({ product }: ProductPdfProps) {
       {/* On-Page Button for Customers */}
       <button
         type="button"
-        onClick={handlePrintPdf}
+        onClick={handleDownload}
         className="w-full flex items-center justify-center gap-2.5 py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200/80 font-semibold text-sm shadow-sm transition-all duration-200 hover:shadow-md cursor-pointer group"
         title="Download official wholesale specification & rate sheet PDF"
       >

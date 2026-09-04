@@ -17,7 +17,7 @@ if (!$slug) {
 try {
     // Get product details
     $stmt = $pdo->prepare("
-        SELECT p.id, p.category_id, p.name, p.slug, p.description, p.fabric, p.moq, p.price_per_piece, c.name as category_name
+        SELECT p.id, p.category_id, p.name, p.slug, p.description, p.fabric, p.moq, p.price_per_piece, p.catalog_pdf_url, c.name as category_name
         FROM products p
         LEFT JOIN categories c ON p.category_id = c.id
         WHERE p.slug = :slug AND p.is_active = 1

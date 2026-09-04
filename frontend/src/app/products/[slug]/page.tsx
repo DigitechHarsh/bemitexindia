@@ -32,6 +32,7 @@ interface Product {
   moq: number;
   price_per_piece: number;
   category_name: string;
+  catalog_pdf_url?: string | null;
   images: { image_url: string; sort_order: number }[];
 }
 
@@ -150,6 +151,7 @@ async function getProduct(slug: string): Promise<Product | null> {
         moq: Number(apiProduct.moq) || 12,
         price_per_piece: Number(apiProduct.price_per_piece) || 450,
         category_name: apiProduct.category_name || "Ethnic Wear",
+        catalog_pdf_url: apiProduct.catalog_pdf_url || null,
         images: liveImages,
       };
     }

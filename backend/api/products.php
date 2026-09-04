@@ -10,7 +10,7 @@ $category_slug = isset($_GET['category']) ? $_GET['category'] : null;
 
 try {
     $query = "
-        SELECT p.id, p.name, p.slug, p.fabric, p.moq, p.price_per_piece, c.name as category_name,
+        SELECT p.id, p.name, p.slug, p.fabric, p.moq, p.price_per_piece, p.catalog_pdf_url, c.name as category_name,
                (SELECT image_url FROM product_images WHERE product_id = p.id ORDER BY sort_order ASC LIMIT 1) as main_image
         FROM products p
         LEFT JOIN categories c ON p.category_id = c.id

@@ -87,7 +87,7 @@ export default function Home() {
         <div className="relative w-full max-w-[280px] md:max-w-[450px] lg:max-w-[550px] flex justify-center items-center px-4 -mt-3 md:-mt-6 lg:-mt-8 -mb-1 md:-mb-3 lg:-mb-5">
           <Image
             src="/midimage.png"
-            alt="Bemitex India"
+            alt="Bemitex India - Leading Wholesale Ethnic Wear Manufacturer in Surat Gujarat"
             width={800}
             height={200}
             className="w-full h-auto object-contain"
@@ -227,8 +227,9 @@ export default function Home() {
                 <Link href={`/products?category=${category.slug}`}>
                   <Image
                     src={category.image}
-                    alt={category.name}
+                    alt={`${category.name} - Wholesale Collection Surat`}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>

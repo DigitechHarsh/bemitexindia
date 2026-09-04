@@ -1,159 +1,83 @@
-"use client";
+import type { Metadata } from "next";
+import { Video, ShieldCheck, Clock, Sparkles } from "lucide-react";
+import Breadcrumb from "@/components/Breadcrumb";
+import VideoCallClientForm from "@/components/VideoCallClientForm";
 
-import { useState } from "react";
-import { Video, Calendar, Clock, User, Phone, CheckCircle2 } from "lucide-react";
+export const metadata: Metadata = {
+  title: "Book Live Video Call Shopping Appointment | Surat Factory Showroom",
+  description: "Experience live video call shopping directly with Bemitex India factory executives in Surat. Inspect fabric textures, colors, and live catalogs before placing bulk wholesale orders.",
+  keywords: [
+    "video call shopping ethnic wear",
+    "live video shopping surat textile market",
+    "wholesale video shopping kurtis",
+    "virtual boutique sourcing india",
+    "bemitex live video shopping"
+  ],
+  alternates: {
+    canonical: "/video-call",
+  },
+  openGraph: {
+    title: "Live Video Call Shopping Assistance | Bemitex India",
+    description: "Book an exclusive 1-on-1 live video shopping session with our Surat factory team. View real-time fabric textures and new arrivals.",
+    url: "/video-call",
+  },
+};
 
 export default function VideoCallPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 1500);
-  };
-
-  if (isSuccess) {
-    return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4 text-center">
-        <CheckCircle2 size={64} className="text-green-500 mb-4" />
-        <h1 className="text-3xl font-bold text-bemitex-dark mb-2">Video Appointment Requested!</h1>
-        <p className="text-gray-600 max-w-md mb-8">
-          Thank you for booking a video shopping appointment with Bemitex India. Our team will contact you via WhatsApp to confirm the exact time and share the video call link.
-        </p>
-        <button 
-          onClick={() => setIsSuccess(false)}
-          className="bg-bemitex-maroon text-white px-8 py-3 rounded-md hover:bg-bemitex-maroon/90 font-medium"
-        >
-          Book Another Appointment
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
+      <Breadcrumb items={[{ label: "Video Call Shopping" }]} />
       
       {/* Banner */}
-      <div className="bg-bemitex-dark text-white py-16 px-4 text-center">
-        <div className="text-center mb-12">
-          <Video size={48} className="text-bemitex-maroon mx-auto mb-4" />
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4">Video Call Shopping Assistance</h1>
-          <p className="text-gray-300 text-lg">
-            Can&apos;t visit our Surat factory? No problem. Book a personalized video call to see our latest collections, check fabric quality live, and place your bulk orders with confidence.
+      <div className="bg-bemitex-dark text-white py-12 sm:py-16 px-4 text-center">
+        <div className="max-w-4xl mx-auto">
+          <div className="inline-flex p-3 bg-white/10 rounded-full text-bemitex-gold mb-4">
+            <Video size={36} />
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white mb-4">
+            Live Video Call Shopping Assistance
+          </h1>
+          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+            Can&apos;t visit our Surat factory in person? Book a personalized video call to inspect fabric quality, see latest designs in real-time, and place bulk orders with complete confidence.
           </p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
           
           {/* Info Side */}
-          <div className="md:col-span-2 space-y-8">
-            <div>
-              <h3 className="text-xl font-bold text-bemitex-dark mb-3">How it works</h3>
-              <ol className="list-decimal pl-4 space-y-2 text-gray-600">
-                <li>Submit this booking form.</li>
-                <li>We confirm the slot via WhatsApp.</li>
-                <li>Join the video call on time.</li>
-                <li>Our executive shows you the designs.</li>
-                <li>Finalize your bulk order instantly.</li>
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h2 className="text-xl font-serif font-bold text-bemitex-dark mb-4 flex items-center gap-2">
+                <Sparkles size={20} className="text-bemitex-maroon" />
+                How Video Shopping Works
+              </h2>
+              <ol className="list-decimal pl-5 space-y-3 text-gray-600 text-sm sm:text-base">
+                <li>Submit your preferred date and time slot.</li>
+                <li>Our team confirms the appointment via WhatsApp.</li>
+                <li>Join high-definition video call from anywhere.</li>
+                <li>Our textile executive showcases live pieces.</li>
+                <li>Get immediate wholesale invoices & COD dispatch.</li>
               </ol>
             </div>
             
-            <div className="bg-bemitex-cream/50 p-6 rounded-lg border border-bemitex-gold/20">
-              <h4 className="font-bold text-bemitex-maroon mb-2">Important Note</h4>
-              <p className="text-sm text-gray-600">
-                Video call shopping is strictly for B2B wholesale buyers. Minimum order quantities apply to all purchases made during the call.
+            <div className="bg-bemitex-cream/50 p-6 rounded-2xl border border-bemitex-gold/30">
+              <h3 className="font-bold text-bemitex-maroon mb-2 flex items-center gap-2 text-sm sm:text-base">
+                <ShieldCheck size={18} />
+                B2B Wholesale Buyer Policy
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                Video shopping is exclusively reserved for boutique owners, retail shops, and bulk reselling businesses. Minimum order quantities apply to all catalog items.
               </p>
             </div>
           </div>
 
           {/* Form Side */}
-          <div className="md:col-span-3 bg-white shadow-lg border border-gray-100 rounded-xl p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-bemitex-dark mb-6 border-b pb-4">Book Your Slot</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-5">
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <User size={16} className="text-gray-400" />
-                    </div>
-                    <input type="text" required className="pl-10 w-full rounded-md border border-gray-300 py-2 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none" placeholder="Full Name" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
-                  <input type="text" className="w-full rounded-md border border-gray-300 py-2 px-3 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none" placeholder="Boutique / Shop Name" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number *</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Phone size={16} className="text-gray-400" />
-                  </div>
-                  <input type="tel" required className="pl-10 w-full rounded-md border border-gray-300 py-2 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none" placeholder="For video call link & confirmation" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Date *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Calendar size={16} className="text-gray-400" />
-                    </div>
-                    <input type="date" required className="pl-10 w-full rounded-md border border-gray-300 py-2 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none bg-white" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Time *</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Clock size={16} className="text-gray-400" />
-                    </div>
-                    <select required className="pl-10 w-full rounded-md border border-gray-300 py-2 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none bg-white">
-                      <option value="">Select Time</option>
-                      <option value="Morning (10 AM - 1 PM)">Morning (10 AM - 1 PM)</option>
-                      <option value="Afternoon (1 PM - 4 PM)">Afternoon (1 PM - 4 PM)</option>
-                      <option value="Evening (4 PM - 7 PM)">Evening (4 PM - 7 PM)</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">What are you looking to buy? *</label>
-                <textarea 
-                  required
-                  rows={3} 
-                  className="w-full rounded-md border border-gray-300 py-2 px-3 focus:ring-bemitex-maroon focus:border-bemitex-maroon outline-none resize-none" 
-                  placeholder="E.g. Heavy Bridal Gowns, Cotton Kurtis for daily wear..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-bemitex-maroon text-white py-3 rounded-md font-bold text-lg hover:bg-bemitex-maroon/90 transition-colors flex items-center justify-center disabled:opacity-70"
-              >
-                {isSubmitting ? "Submitting Request..." : "Book Video Call Appointment"}
-              </button>
-              
-            </form>
+          <div className="lg:col-span-3">
+            <VideoCallClientForm />
           </div>
+
         </div>
       </div>
     </div>

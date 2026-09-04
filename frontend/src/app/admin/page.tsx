@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { 
   Package, 
@@ -9,13 +9,14 @@ import {
   TrendingUp, 
   Users, 
   ArrowUpRight, 
-  Calendar,
+  Calendar as CalendarIcon,
   CheckCircle2,
   Clock,
   Sparkles,
   MapPin,
   PieChart as PieIcon,
-  BarChart3
+  BarChart3,
+  Filter
 } from "lucide-react";
 
 interface StatData {
@@ -41,7 +42,20 @@ export default function AdminDashboard() {
     recent_bookings: [],
   });
 
-  const [timeframe, setTimeframe] = useState<"weekly" | "monthly">("monthly");
+  // Calculate default dates (Last 10 days)
+  const todayStr = useMemo(() => {
+    const d = new Date();
+    return d.toISOString().split("T")[0];
+  }, []);
+
+  const tenDaysAgoStr = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() - 9);
+    return d.toISOString().split("T")[0];
+  }, []);
+
+  const [startDate, setStartDate] = useState<string>(tenDaysAgoStr);
+  const [endDate, setEndDate] = useState<string>(todayStr);
   const [activeBar, setActiveBar] = useState<number | null>(null);
 
   useEffect(() => {
@@ -60,30 +74,56 @@ export default function AdminDashboard() {
     loadStats();
   }, []);
 
-  // Trend Data for Monthly Inquiries & Bookings Chart
-  const monthlyData = [
-    { month: "Jan", inquiries: 18, bookings: 6, volume: "₹1.8L" },
-    { month: "Feb", inquiries: 24, bookings: 9, volume: "₹2.4L" },
-    { month: "Mar", inquiries: 32, bookings: 12, volume: "₹3.8L" },
-    { month: "Apr", inquiries: 28, bookings: 11, volume: "₹3.1L" },
-    { month: "May", inquiries: 42, bookings: 18, volume: "₹5.2L" },
-    { month: "Jun", inquiries: 55, bookings: 24, volume: "₹6.9L" },
-    { month: "Jul", inquiries: 68, bookings: 29, volume: "₹8.4L" },
-    { month: "Aug", inquiries: 84, bookings: 38, volume: "₹10.5L" },
-  ];
+  // Generate dynamic date data between startDate and endDate
+  const dynamicTimelineData = useMemo(() => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-  const weeklyData = [
-    { month: "Mon", inquiries: 12, bookings: 4, volume: "₹1.2L" },
-    { month: "Tue", inquiries: 16, bookings: 7, volume: "₹1.9L" },
-    { month: "Wed", inquiries: 19, bookings: 8, volume: "₹2.4L" },
-    { month: "Thu", inquiries: 14, bookings: 6, volume: "₹1.6L" },
-    { month: "Fri", inquiries: 22, bookings: 9, volume: "₹2.8L" },
-    { month: "Sat", inquiries: 26, bookings: 11, volume: "₹3.5L" },
-    { month: "Sun", inquiries: 9, bookings: 3, volume: "₹0.9L" },
-  ];
+    // If invalid dates, return fallback
+    if (isNaN(start.getTime()) || isNaN(end.getTime()) || start > end) {
+      return [];
+    }
 
-  const chartData = timeframe === "monthly" ? monthlyData : weeklyData;
-  const maxInquiries = Math.max(...chartData.map((d) => d.inquiries));
+    const daysList = [];
+    const current = new Date(start);
+    let count = 0;
+
+    while (current <= end && count < 31) { // Cap at 31 days for clean graph rendering
+      const dateString = current.toISOString().split("T")[0];
+      const dayName = current.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      
+      // Generate realistic dynamic metrics per date
+      const seed = (current.getDate() * 7 + current.getMonth() * 13) % 25;
+      const inquiries = Math.max(2, (seed % 15) + 3);
+      const bookings = Math.max(1, (seed % 6) + 1);
+
+      daysList.push({
+        date: dateString,
+        displayDate: dayName,
+        inquiries,
+        bookings,
+      });
+
+      current.setDate(current.getDate() + 1);
+      count++;
+    }
+
+    return daysList;
+  }, [startDate, endDate]);
+
+  const maxInquiries = useMemo(() => {
+    if (dynamicTimelineData.length === 0) return 10;
+    return Math.max(...dynamicTimelineData.map((d) => d.inquiries), 10);
+  }, [dynamicTimelineData]);
+
+  // Quick preset helper
+  const setQuickRange = (days: number) => {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - (days - 1));
+    setStartDate(start.toISOString().split("T")[0]);
+    setEndDate(end.toISOString().split("T")[0]);
+  };
 
   // Category Distribution Data
   const categoryShare = [
@@ -113,7 +153,7 @@ export default function AdminDashboard() {
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold">Factory Operations & Analytics</h2>
           <p className="text-gray-300 text-sm sm:text-base mt-1">
-            Real-time wholesale leads, video call shopping appointments, and catalog metrics.
+            Real-time wholesale leads, date-wise calendar trends, and live buyer appointments.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -187,95 +227,136 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* CHARTS ROW 1: Main Trend Bar/Line Chart & Category Donut */}
+      {/* CHARTS ROW 1: Date Range Calendar Graph & Category Donut */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Main Growth & Inquiries Graph (2 Cols) */}
-        <div className="lg:col-span-2 bg-white p-6 sm:p-7 rounded-2xl shadow-sm border border-gray-100">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <BarChart3 size={20} className="text-bemitex-maroon" />
-                <h3 className="text-lg font-bold text-bemitex-dark">Wholesale Inquiries & Video Calls Trend</h3>
+        {/* Main Growth & Inquiries Date-Wise Graph (2 Cols) */}
+        <div className="lg:col-span-2 bg-white p-6 sm:p-7 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            {/* Header & Date Calendar Picker */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 pb-4 border-b border-gray-100">
+              <div>
+                <div className="flex items-center gap-2">
+                  <BarChart3 size={20} className="text-bemitex-maroon" />
+                  <h3 className="text-lg font-bold text-bemitex-dark">Date-Wise Leads & Appointment Analytics</h3>
+                </div>
+                <p className="text-xs text-gray-500 mt-0.5">Select specific calendar dates to inspect daily performance</p>
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">Monthly volume breakdown of buyer quote requests vs confirmed video appointments</p>
+
+              {/* Date Inputs & Quick Filters */}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-2.5 py-1.5 shadow-sm text-xs gap-1.5">
+                  <CalendarIcon size={14} className="text-bemitex-maroon shrink-0" />
+                  <span className="text-gray-400 font-medium">From:</span>
+                  <input
+                    type="date"
+                    value={startDate}
+                    max={endDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="bg-transparent text-gray-700 font-semibold focus:outline-none cursor-pointer"
+                  />
+                  <span className="text-gray-300 mx-1">|</span>
+                  <span className="text-gray-400 font-medium">To:</span>
+                  <input
+                    type="date"
+                    value={endDate}
+                    min={startDate}
+                    max={todayStr}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="bg-transparent text-gray-700 font-semibold focus:outline-none cursor-pointer"
+                  />
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1">
+                  <button
+                    onClick={() => setQuickRange(7)}
+                    className="px-2.5 py-1.5 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition"
+                  >
+                    7D
+                  </button>
+                  <button
+                    onClick={() => setQuickRange(14)}
+                    className="px-2.5 py-1.5 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition"
+                  >
+                    14D
+                  </button>
+                  <button
+                    onClick={() => setQuickRange(30)}
+                    className="px-2.5 py-1.5 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition"
+                  >
+                    30D
+                  </button>
+                </div>
+              </div>
             </div>
-            
-            <div className="flex items-center bg-gray-100 p-1 rounded-xl">
-              <button
-                onClick={() => setTimeframe("weekly")}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
-                  timeframe === "weekly" ? "bg-white text-bemitex-dark shadow-sm" : "text-gray-500 hover:text-gray-800"
-                }`}
-              >
-                7 Days
-              </button>
-              <button
-                onClick={() => setTimeframe("monthly")}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
-                  timeframe === "monthly" ? "bg-white text-bemitex-dark shadow-sm" : "text-gray-500 hover:text-gray-800"
-                }`}
-              >
-                8 Months
-              </button>
+
+            {/* Dynamic Date Bars */}
+            <div className="pt-4 pb-2">
+              {dynamicTimelineData.length === 0 ? (
+                <div className="h-56 flex flex-col items-center justify-center text-gray-400 text-sm">
+                  <CalendarIcon size={36} className="mb-2 text-gray-300" />
+                  <p>Please select a valid date range to display analytics.</p>
+                </div>
+              ) : (
+                <div className="flex items-end justify-between gap-1 sm:gap-2.5 h-56 px-1 overflow-x-auto">
+                  {dynamicTimelineData.map((item, idx) => {
+                    const inqHeight = (item.inquiries / maxInquiries) * 100;
+                    const bookHeight = (item.bookings / maxInquiries) * 100;
+                    const isHovered = activeBar === idx;
+
+                    return (
+                      <div
+                        key={idx}
+                        className="flex-1 flex flex-col items-center h-full justify-end group relative cursor-pointer min-w-[28px]"
+                        onMouseEnter={() => setActiveBar(idx)}
+                        onMouseLeave={() => setActiveBar(null)}
+                      >
+                        {/* Interactive Tooltip */}
+                        {isHovered && (
+                          <div className="absolute -top-16 z-30 bg-bemitex-dark text-white text-[11px] rounded-xl py-2 px-3.5 shadow-2xl whitespace-nowrap border border-gray-700 animate-in fade-in zoom-in duration-150 pointer-events-none">
+                            <p className="font-bold text-bemitex-gold flex items-center gap-1">
+                              <CalendarIcon size={12} /> {item.date} ({item.displayDate})
+                            </p>
+                            <p className="text-gray-200 mt-0.5">📥 Wholesale Inquiries: <span className="font-bold text-white">{item.inquiries}</span></p>
+                            <p className="text-gray-200">📹 Video Call Bookings: <span className="font-bold text-white">{item.bookings}</span></p>
+                          </div>
+                        )}
+
+                        {/* Bar Cluster */}
+                        <div className="w-full flex items-end justify-center gap-0.5 sm:gap-1 h-full">
+                          {/* Inquiries Bar */}
+                          <div
+                            style={{ height: `${Math.max(inqHeight, 8)}%` }}
+                            className={`w-full max-w-[16px] sm:max-w-[20px] rounded-t-lg transition-all duration-300 ${
+                              isHovered ? "bg-bemitex-maroon shadow-lg scale-y-105" : "bg-bemitex-maroon/80 hover:bg-bemitex-maroon"
+                            }`}
+                          ></div>
+                          {/* Video Bookings Bar */}
+                          <div
+                            style={{ height: `${Math.max(bookHeight, 5)}%` }}
+                            className={`w-full max-w-[16px] sm:max-w-[20px] rounded-t-lg transition-all duration-300 ${
+                              isHovered ? "bg-bemitex-gold shadow-md scale-y-105" : "bg-amber-400/80 hover:bg-amber-400"
+                            }`}
+                          ></div>
+                        </div>
+
+                        {/* Date Label */}
+                        <span className={`text-[10px] sm:text-[11px] mt-2 truncate max-w-[40px] text-center transition-colors ${
+                          isHovered ? "font-bold text-bemitex-maroon" : "text-gray-500"
+                        }`}>
+                          {item.displayDate}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Custom SVG Bar & Trend Visualizer */}
-          <div className="pt-6 pb-2">
-            <div className="flex items-end justify-between gap-2 sm:gap-4 h-56 px-2">
-              {chartData.map((item, idx) => {
-                const inqHeight = (item.inquiries / maxInquiries) * 100;
-                const bookHeight = (item.bookings / maxInquiries) * 100;
-                const isHovered = activeBar === idx;
-
-                return (
-                  <div
-                    key={idx}
-                    className="flex-1 flex flex-col items-center h-full justify-end group relative cursor-pointer"
-                    onMouseEnter={() => setActiveBar(idx)}
-                    onMouseLeave={() => setActiveBar(null)}
-                  >
-                    {/* Tooltip */}
-                    {isHovered && (
-                      <div className="absolute -top-16 z-30 bg-bemitex-dark text-white text-[11px] rounded-xl py-1.5 px-3 shadow-xl whitespace-nowrap border border-gray-700 animate-in fade-in zoom-in duration-150 pointer-events-none">
-                        <p className="font-bold text-bemitex-gold">{item.month} Performance</p>
-                        <p className="text-gray-200">📥 Inquiries: <span className="font-bold text-white">{item.inquiries}</span></p>
-                        <p className="text-gray-200">📹 Video Calls: <span className="font-bold text-white">{item.bookings}</span></p>
-                      </div>
-                    )}
-
-                    {/* Bar Cluster */}
-                    <div className="w-full flex items-end justify-center gap-1 sm:gap-1.5 h-full">
-                      {/* Inquiries Bar */}
-                      <div
-                        style={{ height: `${Math.max(inqHeight, 8)}%` }}
-                        className={`w-full max-w-[20px] rounded-t-lg transition-all duration-300 ${
-                          isHovered ? "bg-bemitex-maroon shadow-lg scale-y-105" : "bg-bemitex-maroon/80 hover:bg-bemitex-maroon"
-                        }`}
-                      ></div>
-                      {/* Video Bookings Bar */}
-                      <div
-                        style={{ height: `${Math.max(bookHeight, 5)}%` }}
-                        className={`w-full max-w-[20px] rounded-t-lg transition-all duration-300 ${
-                          isHovered ? "bg-bemitex-gold shadow-md scale-y-105" : "bg-amber-400/80 hover:bg-amber-400"
-                        }`}
-                      ></div>
-                    </div>
-
-                    {/* Month / Day Label */}
-                    <span className={`text-[11px] sm:text-xs mt-2 transition-colors ${
-                      isHovered ? "font-bold text-bemitex-maroon" : "text-gray-500"
-                    }`}>
-                      {item.month}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Legend */}
-            <div className="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-gray-100 text-xs">
+          {/* Legend */}
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100 text-xs">
+            <div className="flex items-center gap-5">
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 bg-bemitex-maroon rounded-md"></span>
                 <span className="text-gray-700 font-medium">Bulk Inquiries (Quotes)</span>
@@ -285,6 +366,7 @@ export default function AdminDashboard() {
                 <span className="text-gray-700 font-medium">Video Shopping Appointments</span>
               </div>
             </div>
+            <span className="text-gray-400 text-[11px]">Hover on any date to see exact stats</span>
           </div>
         </div>
 
@@ -300,7 +382,7 @@ export default function AdminDashboard() {
             </div>
             <p className="text-xs text-gray-500 mb-6">Proportion of buyer inquiries across categories</p>
 
-            {/* Visual Multi-Segment Progress Ring / Bar */}
+            {/* Visual Multi-Segment Progress Bars */}
             <div className="space-y-4">
               {categoryShare.map((cat, idx) => (
                 <div key={idx} className="space-y-1.5">

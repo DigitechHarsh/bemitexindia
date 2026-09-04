@@ -45,8 +45,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 450,
     category_name: "Kurtis & Sets",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1631541909061-71e34a360a03?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
-      { image_url: "https://images.unsplash.com/photo-1616421571738-eb7f1b1356fc?q=80&w=800&auto=format&fit=crop", sort_order: 2 },
+      { image_url: "/products/prod_anarkali.jpg", sort_order: 1 },
+      { image_url: "/products/prod_suit.jpg", sort_order: 2 },
+      { image_url: "/products/prod_cotton.jpg", sort_order: 3 },
     ],
   },
   "georgette-suit": {
@@ -59,8 +60,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 1250,
     category_name: "Designer Salwar Suits",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
-      { image_url: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop", sort_order: 2 },
+      { image_url: "/products/prod_suit.jpg", sort_order: 1 },
+      { image_url: "/products/prod_anarkali.jpg", sort_order: 2 },
+      { image_url: "/products/prod_gown.jpg", sort_order: 3 },
     ],
   },
   "banarasi-silk": {
@@ -73,7 +75,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 1850,
     category_name: "Traditional Sarees",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
+      { image_url: "/products/prod_saree.jpg", sort_order: 1 },
+      { image_url: "/products/prod_gown.jpg", sort_order: 2 },
+      { image_url: "/products/prod_anarkali.jpg", sort_order: 3 },
     ],
   },
   "cotton-kurti-set": {
@@ -86,7 +90,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 350,
     category_name: "Kurtis & Sets",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
+      { image_url: "/products/prod_cotton.jpg", sort_order: 1 },
+      { image_url: "/products/prod_anarkali.jpg", sort_order: 2 },
+      { image_url: "/products/prod_suit.jpg", sort_order: 3 },
     ],
   },
   "heavy-bridal-gown": {
@@ -99,7 +105,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 3500,
     category_name: "Partywear Gowns",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
+      { image_url: "/products/prod_gown.jpg", sort_order: 1 },
+      { image_url: "/products/prod_saree.jpg", sort_order: 2 },
+      { image_url: "/products/prod_suit.jpg", sort_order: 3 },
     ],
   },
   "pashmina-winter": {
@@ -112,7 +120,9 @@ const fallbackCatalog: Record<string, Product> = {
     price_per_piece: 850,
     category_name: "Designer Salwar Suits",
     images: [
-      { image_url: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=800&auto=format&fit=crop", sort_order: 1 },
+      { image_url: "/products/prod_pashmina.jpg", sort_order: 1 },
+      { image_url: "/products/prod_suit.jpg", sort_order: 2 },
+      { image_url: "/products/prod_cotton.jpg", sort_order: 3 },
     ],
   },
 };
@@ -122,6 +132,14 @@ async function getProduct(slug: string): Promise<Product | null> {
   try {
     const apiProduct = await fetchProductBySlug(slug);
     if (apiProduct) {
+      const liveImages = (apiProduct.images && apiProduct.images.length > 0)
+        ? apiProduct.images 
+        : [
+            { image_url: apiProduct.main_image || "/products/prod_anarkali.jpg", sort_order: 1 },
+            { image_url: "/products/prod_suit.jpg", sort_order: 2 },
+            { image_url: "/products/prod_cotton.jpg", sort_order: 3 },
+          ];
+
       return {
         id: apiProduct.id,
         name: apiProduct.name,
@@ -131,13 +149,7 @@ async function getProduct(slug: string): Promise<Product | null> {
         moq: Number(apiProduct.moq) || 12,
         price_per_piece: Number(apiProduct.price_per_piece) || 450,
         category_name: apiProduct.category_name || "Ethnic Wear",
-        images: (apiProduct.images && apiProduct.images.length > 1)
-          ? apiProduct.images 
-          : (fallbackCatalog[slug]?.images || [
-              { image_url: apiProduct.main_image || apiProduct.images?.[0]?.image_url || "/products/prod_anarkali.jpg", sort_order: 1 },
-              { image_url: "/products/prod_suit.jpg", sort_order: 2 },
-              { image_url: "/products/prod_anarkali.jpg", sort_order: 3 },
-            ]),
+        images: liveImages,
       };
     }
   } catch (e) {

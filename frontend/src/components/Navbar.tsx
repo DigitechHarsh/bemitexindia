@@ -4,12 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, PhoneCall } from "lucide-react";
+import { Menu, X, PhoneCall, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBulkInquiry } from "@/context/BulkInquiryContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { totalItems, openDrawer } = useBulkInquiry();
 
   // Do not render website Navbar on Admin pages
   if (pathname?.startsWith("/admin")) {
@@ -36,16 +38,30 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Right: Phone & Menu */}
+            {/* Right: Cart, Phone & Menu */}
             <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={openDrawer}
+                className="relative p-2 text-bemitex-dark hover:text-bemitex-maroon transition"
+                aria-label="Open Bulk Inquiry Cart"
+              >
+                <ShoppingBag size={22} />
+                {totalItems > 0 && (
+                  <span className="absolute 0 top-0.5 right-0.5 bg-bemitex-maroon text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
               <Link href="/inquiry" className="text-bemitex-maroon p-2">
-                <PhoneCall size={24} />
+                <PhoneCall size={22} />
               </Link>
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-bemitex-dark hover:text-bemitex-maroon p-2 -mr-2"
               >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
+                {isOpen ? <X size={26} /> : <Menu size={26} />}
               </button>
             </div>
           </div>
@@ -77,14 +93,31 @@ export default function Navbar() {
               <Link href="/contact" className="text-gray-600 hover:text-bemitex-maroon font-medium transition-colors">Contact</Link>
             </div>
 
-            {/* Right: Action Button */}
-            <div className="flex-shrink-0 flex items-center">
+            {/* Right: Cart & Action Button */}
+            <div className="flex-shrink-0 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={openDrawer}
+                className="relative flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-bemitex-dark px-3.5 py-2 rounded-xl font-bold text-xs border border-gray-200 transition shadow-sm hover:scale-105 active:scale-95"
+                title="View Wholesale Inquiry Cart"
+              >
+                <div className="relative">
+                  <ShoppingBag size={18} className="text-bemitex-maroon" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 bg-bemitex-maroon text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                      {totalItems}
+                    </span>
+                  )}
+                </div>
+                <span>Inquiry Cart</span>
+              </button>
+
               <Link
                 href="/inquiry"
-                className="bg-bemitex-maroon text-white px-6 py-2 rounded-md font-semibold hover:bg-bemitex-dark transition-colors shadow-sm hover:shadow flex items-center gap-2"
+                className="bg-bemitex-maroon text-white px-5 py-2 rounded-xl font-semibold hover:bg-bemitex-dark transition-all shadow-sm hover:shadow flex items-center gap-2 text-sm"
               >
-                <PhoneCall size={18} />
-                Bulk Inquiry
+                <PhoneCall size={16} />
+                <span>Bulk Inquiry</span>
               </Link>
             </div>
             

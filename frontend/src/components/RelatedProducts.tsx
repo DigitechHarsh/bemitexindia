@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, ShoppingBag, Check } from "lucide-react";
+import { useState } from "react";
 import WhatsappIcon from "@/components/WhatsappIcon";
+import { useBulkInquiry } from "@/context/BulkInquiryContext";
 
 export interface SuggestionProduct {
   id: number;
@@ -23,12 +25,34 @@ interface RelatedProductsProps {
 }
 
 export default function RelatedProducts({ currentSlug, currentCategory, products }: RelatedProductsProps) {
+  const { addToInquiry, items } = useBulkInquiry();
+  const [addedId, setAddedId] = useState<number | null>(null);
+
   // Filter out current product and get up to 4 recommendations
   const suggestions = products
     .filter((p) => p.slug !== currentSlug)
     .slice(0, 4);
 
   if (suggestions.length === 0) return null;
+
+  const handleAdd = (item: SuggestionProduct, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const parsedPrice = typeof item.price_per_piece === "number" ? item.price_per_piece : parseFloat(item.price_per_piece) || 0;
+    addToInquiry({
+      id: item.id,
+      name: item.name,
+      slug: item.slug,
+      fabric: item.fabric || "Premium Fabric",
+      moq: item.moq || 1,
+      price_per_piece: parsedPrice,
+      category_name: item.category_name,
+      main_image: item.main_image || "/products/prod_anarkali.jpg",
+    }, item.moq || 1);
+
+    setAddedId(item.id);
+    setTimeout(() => setAddedId(null), 2000);
+  };
 
   return (
     <section className="mt-20 pt-16 border-t border-gray-200">
@@ -52,6 +76,8 @@ export default function RelatedProducts({ currentSlug, currentCategory, products
         {suggestions.map((item) => {
           const imgUrl = item.main_image || "/products/prod_anarkali.jpg";
           const parsedPrice = typeof item.price_per_piece === "number" ? item.price_per_piece : parseFloat(item.price_per_piece);
+          const isItemInCart = items.some((i) => i.id === item.id);
+          const isJustAdded = addedId === item.id;
 
           return (
             <div
@@ -100,29 +126,36 @@ export default function RelatedProducts({ currentSlug, currentCategory, products
                 </div>
 
                 {/* Price & WhatsApp Action */}
-                <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-2">
+                <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-2 gap-2">
                   <div>
                     <span className="text-[11px] text-gray-400 block font-medium">Wholesale Rate</span>
                     <span className="text-lg font-bold text-bemitex-maroon">₹{parsedPrice}</span>
                     <span className="text-[11px] text-gray-500 font-normal"> /pc</span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={(e) => handleAdd(item, e)}
+                      type="button"
+                      className={`p-2 rounded-xl border transition-all flex items-center justify-center ${
+                        isJustAdded || isItemInCart
+                          ? "bg-amber-50 border-amber-300 text-bemitex-maroon"
+                          : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-bemitex-maroon hover:text-white hover:border-bemitex-maroon"
+                      }`}
+                      title={isItemInCart ? "In Inquiry Cart" : `Add MOQ (${item.moq} pcs) to Bulk Inquiry`}
+                    >
+                      {isJustAdded ? <Check size={16} className="text-green-600" /> : <ShoppingBag size={16} />}
+                    </button>
+
                     <a
                       href={`https://wa.me/919876543210?text=Hello%20Bemitex,%20I'm%20interested%20in%20wholesale%20order%20for:%20${encodeURIComponent(item.name)}%20(MOQ:%20${item.moq}%20pcs).`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
+                      className="p-2 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
                       title="Quick Inquiry on WhatsApp"
                     >
-                      <WhatsappIcon size={18} />
+                      <WhatsappIcon size={16} />
                     </a>
-                    <Link
-                      href={`/products/${item.slug}`}
-                      className="px-3 py-2 bg-gray-50 hover:bg-bemitex-dark hover:text-white text-gray-700 text-xs font-bold rounded-xl transition"
-                    >
-                      View
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -133,3 +166,4 @@ export default function RelatedProducts({ currentSlug, currentCategory, products
     </section>
   );
 }
+

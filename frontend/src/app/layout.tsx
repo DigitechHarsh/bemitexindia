@@ -6,6 +6,8 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/JsonLd";
+import { BulkInquiryProvider } from "@/context/BulkInquiryContext";
+import BulkInquiryDrawer from "@/components/BulkInquiryDrawer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -152,13 +154,16 @@ export default function RootLayout({
         <JsonLd data={globalOrganizationSchema} />
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased min-h-screen flex flex-col font-sans`}>
-        <AnnouncementBar />
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
-        <FloatingWhatsApp />
+        <BulkInquiryProvider>
+          <AnnouncementBar />
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <FloatingWhatsApp />
+          <BulkInquiryDrawer />
+        </BulkInquiryProvider>
       </body>
     </html>
   );

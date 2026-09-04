@@ -20,6 +20,7 @@ import JsonLd from "@/components/JsonLd";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import RelatedProducts from "@/components/RelatedProducts";
 import DownloadProductPdf from "@/components/DownloadProductPdf";
+import ProductDetailActions from "@/components/ProductDetailActions";
 import { fetchProductBySlug, fetchProducts } from "@/lib/api";
 
 interface Product {
@@ -425,28 +426,11 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="space-y-3 pt-2">
-              <a
-                href={whatsappInquiryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition shadow-lg active:scale-98"
-              >
-                <WhatsappIcon size={24} />
-                <span>Inquire Wholesale on WhatsApp</span>
-              </a>
+            {/* Bulk Inquiry Actions & Wholesale Quantity Bar */}
+            <ProductDetailActions product={product} />
 
-              <Link
-                href={`/inquiry?product=${encodeURIComponent(product.slug)}`}
-                className="w-full py-3.5 px-4 bg-bemitex-dark hover:bg-gray-800 text-white font-bold text-sm sm:text-base rounded-2xl flex items-center justify-center gap-2 transition text-center shadow-md"
-              >
-                <span>Request Custom Bulk Quote / Proforma Invoice</span>
-              </Link>
-
-              {/* Download Wholesale PDF Catalog Button */}
-              <DownloadProductPdf product={product} />
-            </div>
+            {/* Download Wholesale PDF Catalog Button */}
+            <DownloadProductPdf product={product} />
 
             {/* Trust Sourcing Guarantee */}
             <div className="p-4 bg-emerald-50/70 border border-emerald-200/60 rounded-2xl flex items-center gap-3 text-xs text-emerald-900">

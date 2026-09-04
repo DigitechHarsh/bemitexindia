@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Maximize2, X, ShieldCheck, Sparkles, Layers } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X, ShieldCheck, Layers } from "lucide-react";
 
 interface ImageItem {
   image_url: string;
@@ -91,7 +91,7 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
         {/* Floating Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
           <span className="inline-flex items-center gap-1.5 bg-bemitex-maroon text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg backdrop-blur-md">
-            <Sparkles size={13} className="text-bemitex-gold animate-pulse" /> Surat Factory Direct
+            Surat Factory Direct
           </span>
           {fabric && (
             <span className="inline-flex items-center gap-1.5 bg-white/95 text-bemitex-dark text-xs font-semibold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-gray-100">

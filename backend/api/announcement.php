@@ -34,7 +34,7 @@ try {
             INSERT INTO announcements (badge, message, cta_text, cta_link, product_slug, theme, is_active)
             VALUES (
                 'SURAT FACTORY DIRECT', 
-                '✨ Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch', 
+                'Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch', 
                 'View Trending Catalog', 
                 '/products', 
                 'premium-anarkali', 
@@ -58,7 +58,7 @@ try {
             $data = [
                 "id" => 1,
                 "badge" => "SURAT FACTORY DIRECT",
-                "message" => "✨ Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch",
+                "message" => "Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch",
                 "cta_text" => "View Trending Catalog",
                 "cta_link" => "/products",
                 "product_slug" => "premium-anarkali",

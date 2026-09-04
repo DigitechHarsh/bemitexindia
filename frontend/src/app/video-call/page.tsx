@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Video, ShieldCheck, Clock, Sparkles } from "lucide-react";
+import { Video, ShieldCheck, Clock } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import VideoCallClientForm from "@/components/VideoCallClientForm";
 
@@ -49,8 +49,7 @@ export default function VideoCallPage() {
           {/* Info Side */}
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="text-xl font-serif font-bold text-bemitex-dark mb-4 flex items-center gap-2">
-                <Sparkles size={20} className="text-bemitex-maroon" />
+              <h2 className="text-xl font-serif font-bold text-bemitex-dark mb-4">
                 How Video Shopping Works
               </h2>
               <ol className="list-decimal pl-5 space-y-3 text-gray-600 text-sm sm:text-base">

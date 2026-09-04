@@ -12,8 +12,8 @@ import {
   Calendar as CalendarIcon,
   CheckCircle2,
   Clock,
-  Sparkles,
   MapPin,
+  Layers,
   PieChart as PieIcon,
   BarChart3,
   Filter
@@ -148,8 +148,8 @@ export default function AdminDashboard() {
       {/* Top Banner / Welcome */}
       <div className="bg-gradient-to-r from-bemitex-dark via-gray-900 to-bemitex-maroon rounded-2xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <div className="flex items-center gap-2 text-bemitex-gold text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles size={16} /> Bemitex Wholesale Control Center
+          <div className="text-bemitex-gold text-xs font-bold uppercase tracking-wider mb-2">
+            Bemitex Wholesale Control Center
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold">Factory Operations & Analytics</h2>
           <p className="text-gray-300 text-sm sm:text-base mt-1">
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="bg-amber-50 text-amber-600 p-4 rounded-2xl">
-            <Sparkles size={26} />
+            <Layers size={26} />
           </div>
         </div>
       </div>

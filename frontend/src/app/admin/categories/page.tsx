@@ -12,8 +12,7 @@ import {
   X, 
   Loader2,
   FolderOpen,
-  ArrowRight,
-  Sparkles
+  ArrowRight
 } from "lucide-react";
 import Link from "next/link";
 
@@ -183,8 +182,8 @@ export default function AdminCategoriesPage() {
       {/* Header & Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
         <div>
-          <div className="flex items-center gap-2 text-bemitex-maroon font-bold text-xs uppercase tracking-wider mb-1">
-            <Sparkles size={14} className="text-bemitex-gold" /> Catalog Hierarchy
+          <div className="text-bemitex-maroon font-bold text-xs uppercase tracking-wider mb-1">
+            Catalog Hierarchy
           </div>
           <h2 className="text-2xl font-bold font-serif text-bemitex-dark">
             Wholesale Categories ({categories.length})

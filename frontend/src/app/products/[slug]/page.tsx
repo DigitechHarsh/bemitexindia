@@ -8,7 +8,6 @@ import {
   Truck, 
   ShieldCheck, 
   Video, 
-  Sparkles, 
   CheckCircle2, 
   Clock, 
   Layers,

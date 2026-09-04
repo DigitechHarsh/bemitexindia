@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileDown, Printer, Sparkles, CheckCircle2, Building2, Phone, Mail, MapPin } from "lucide-react";
+import { FileDown, Printer, CheckCircle2, Building2, Phone, Mail, MapPin } from "lucide-react";
 
 interface ProductPdfProps {
   product: {

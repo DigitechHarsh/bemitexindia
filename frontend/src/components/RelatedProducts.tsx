@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import WhatsappIcon from "@/components/WhatsappIcon";
 
 export interface SuggestionProduct {

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { 
   Megaphone, 
-  Sparkles, 
   CheckCircle2, 
   AlertCircle, 
   Loader2, 
@@ -30,7 +29,7 @@ export default function AdminAnnouncementPage() {
   // Form State
   const [isActive, setIsActive] = useState(true);
   const [badge, setBadge] = useState("SURAT FACTORY DIRECT");
-  const [announcementText, setAnnouncementText] = useState("✨ Festive Season 2026 Ready Stock Direct from Surat Looms | All India Transport Dispatch");
+  const [announcementText, setAnnouncementText] = useState("Festive Season 2026 Ready Stock Direct from Surat Looms | All India Transport Dispatch");
   const [ctaText, setCtaText] = useState("Explore Trending Collection");
   const [ctaLink, setCtaLink] = useState("/products");
   const [selectedProductSlug, setSelectedProductSlug] = useState("premium-anarkali");
@@ -157,8 +156,8 @@ export default function AdminAnnouncementPage() {
       {/* Header */}
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <div className="flex items-center gap-2 text-bemitex-maroon font-bold text-xs uppercase tracking-wider mb-1">
-            <Sparkles size={14} className="text-bemitex-gold" /> Top Header Marketing
+          <div className="text-bemitex-maroon font-bold text-xs uppercase tracking-wider mb-1">
+            Top Header Marketing
           </div>
           <h2 className="text-2xl font-bold font-serif text-bemitex-dark">
             Announcement Bar & Marketing Notice Manager
@@ -268,7 +267,7 @@ export default function AdminAnnouncementPage() {
               required
               value={announcementText}
               onChange={(e) => setAnnouncementText(e.target.value)}
-              placeholder="e.g. ✨ Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch"
+              placeholder="e.g. Festive Ready Stock 2026 Direct From Looms | Fast All-India Transport Dispatch"
               className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-bemitex-maroon/20 focus:border-bemitex-maroon font-medium text-gray-800"
             />
           </div>
@@ -331,7 +330,7 @@ export default function AdminAnnouncementPage() {
             disabled={saving}
             className="inline-flex items-center gap-2 bg-bemitex-maroon hover:bg-bemitex-dark text-white font-bold px-8 py-3 rounded-xl shadow-lg transition hover:scale-105 active:scale-95 disabled:opacity-50"
           >
-            {saving ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} className="text-bemitex-gold" />}
+            {saving && <Loader2 size={18} className="animate-spin" />}
             <span>Save & Publish Announcement</span>
           </button>
         </div>

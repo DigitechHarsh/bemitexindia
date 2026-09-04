@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 interface AnnouncementData {
@@ -17,7 +17,7 @@ interface AnnouncementData {
 
 const DEFAULT_ANNOUNCEMENT: AnnouncementData = {
   badge: "SURAT FACTORY DIRECT",
-  message: "✨ Festive Season 2026 Ready Stock Direct From Looms | Fast All-India Transport Dispatch",
+  message: "Festive Season 2026 Ready Stock Direct From Looms | Fast All-India Transport Dispatch",
   cta_text: "Explore Collection",
   cta_link: "/products/premium-anarkali",
   product_slug: "premium-anarkali",
@@ -77,8 +77,7 @@ export default function AnnouncementBar() {
         {/* Left / Center: Highlight Badge & Marketing Message */}
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap mx-auto sm:mx-0">
           {announcement.badge && (
-            <span className="inline-flex items-center gap-1 bg-white/15 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/20 shadow-sm text-bemitex-gold">
-              <Sparkles size={11} className="animate-pulse" />
+            <span className="inline-flex items-center bg-white/15 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/20 shadow-sm text-bemitex-gold">
               {announcement.badge}
             </span>
           )}

@@ -32,17 +32,11 @@ export default function RelatedProducts({ currentSlug, currentCategory, products
 
   return (
     <section className="mt-20 pt-16 border-t border-gray-200">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
         <div>
-          <div className="flex items-center gap-2 text-bemitex-maroon text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles size={16} className="text-bemitex-gold" /> Trending Wholesale Sourcing
-          </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-bemitex-dark">
-            You May Also Like & Sourcing Suggestions
+            You May Also Like
           </h2>
-          <p className="text-gray-500 text-sm sm:text-base mt-1">
-            Top moving factory designs in {currentCategory || "Women Ethnic Wear"} for boutique retailers
-          </p>
         </div>
 
         <Link

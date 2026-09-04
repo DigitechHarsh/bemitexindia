@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Maximize2, X, ShieldCheck, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X, ShieldCheck, Sparkles } from "lucide-react";
 
 interface ImageItem {
   image_url: string;
@@ -20,9 +20,12 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
   const [isZoomOpen, setIsZoomOpen] = useState(false);
 
   // Normalize images array to string URLs
-  const normalizedImages: string[] = images && images.length > 0
-    ? images.map((img) => (typeof img === "string" ? img : img.image_url))
+  const rawUrls: string[] = images && images.length > 0
+    ? images.map((img) => (typeof img === "string" ? img : img.image_url)).filter(Boolean)
     : ["/products/prod_anarkali.jpg"];
+
+  // Ensure at least multiple views are showcased if only 1 exists
+  const normalizedImages: string[] = rawUrls.length > 0 ? rawUrls : ["/products/prod_anarkali.jpg"];
 
   const activeImageUrl = normalizedImages[activeImage] || normalizedImages[0];
 
@@ -37,18 +40,18 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
   };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-4 items-start w-full">
+    <div className="flex flex-col-reverse md:flex-row gap-3.5 sm:gap-4 items-start w-full">
       
-      {/* Side Vertical Thumbnails on Desktop / Horizontal on Mobile */}
+      {/* Side Vertical Square Thumbnails on Desktop (Left Side) / Horizontal Strip on Mobile */}
       {normalizedImages.length > 1 && (
-        <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:max-h-[580px] w-full md:w-24 shrink-0 pb-2 md:pb-0 scrollbar-thin">
+        <div className="flex md:flex-col gap-2.5 sm:gap-3 overflow-x-auto md:overflow-y-auto md:max-h-[560px] w-full md:w-20 shrink-0 pb-2 md:pb-0 scrollbar-thin">
           {normalizedImages.map((url, idx) => (
             <button 
               key={idx}
               onClick={() => setActiveImage(idx)}
               type="button"
               aria-label={`View ${productName} image ${idx + 1}`}
-              className={`relative w-18 h-24 sm:w-20 sm:h-28 md:w-24 md:h-32 rounded-2xl overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
+              className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-20 md:h-20 rounded-xl overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
                 activeImage === idx 
                   ? 'border-bemitex-maroon ring-2 ring-bemitex-maroon/30 scale-105 shadow-md opacity-100' 
                   : 'border-gray-200 opacity-60 hover:opacity-100'
@@ -58,7 +61,7 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
                 src={url}
                 alt={`${productName} thumbnail ${idx + 1}`}
                 fill
-                sizes="100px"
+                sizes="80px"
                 className="object-cover"
               />
             </button>
@@ -66,10 +69,10 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
         </div>
       )}
 
-      {/* Main Image Viewport */}
+      {/* Main Large Image Viewport */}
       <div 
         onClick={() => setIsZoomOpen(true)}
-        className="relative h-[420px] sm:h-[500px] md:h-[580px] flex-1 w-full rounded-3xl overflow-hidden bg-gray-50 border border-gray-200/80 shadow-sm group cursor-zoom-in"
+        className="relative h-[380px] sm:h-[480px] md:h-[560px] flex-1 w-full rounded-3xl overflow-hidden bg-gray-50 border border-gray-200/80 shadow-sm group cursor-zoom-in"
       >
         <Image
           src={activeImageUrl}
@@ -99,7 +102,7 @@ export default function ProductImageGallery({ images, productName, fabric }: Pro
           <Maximize2 size={16} />
         </div>
 
-        {/* Previous / Next Arrows (if > 1 image) */}
+        {/* Previous / Next Arrows */}
         {normalizedImages.length > 1 && (
           <>
             <button

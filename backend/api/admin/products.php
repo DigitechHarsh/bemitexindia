@@ -110,6 +110,23 @@ if ($method === 'GET') {
             ':id' => $data->id
         ]);
 
+        // If updated images provided
+        if (isset($data->images) && is_array($data->images) && count($data->images) > 0) {
+            $delImg = $pdo->prepare("DELETE FROM product_images WHERE product_id = :pid");
+            $delImg->execute([':pid' => $data->id]);
+
+            $imgStmt = $pdo->prepare("INSERT INTO product_images (product_id, image_url, sort_order) VALUES (:pid, :url, :order)");
+            foreach ($data->images as $index => $url) {
+                if (!empty($url)) {
+                    $imgStmt->execute([
+                        ':pid' => $data->id,
+                        ':url' => $url,
+                        ':order' => $index + 1
+                    ]);
+                }
+            }
+        }
+
         echo json_encode(["success" => true, "message" => "Product updated successfully"]);
     } catch (PDOException $e) {
         http_response_code(500);

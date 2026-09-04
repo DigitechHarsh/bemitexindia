@@ -131,9 +131,13 @@ async function getProduct(slug: string): Promise<Product | null> {
         moq: Number(apiProduct.moq) || 12,
         price_per_piece: Number(apiProduct.price_per_piece) || 450,
         category_name: apiProduct.category_name || "Ethnic Wear",
-        images: apiProduct.images && apiProduct.images.length > 0 
+        images: (apiProduct.images && apiProduct.images.length > 1)
           ? apiProduct.images 
-          : [{ image_url: apiProduct.main_image || "/products/prod_anarkali.jpg", sort_order: 1 }],
+          : (fallbackCatalog[slug]?.images || [
+              { image_url: apiProduct.main_image || apiProduct.images?.[0]?.image_url || "/products/prod_anarkali.jpg", sort_order: 1 },
+              { image_url: "/products/prod_suit.jpg", sort_order: 2 },
+              { image_url: "/products/prod_anarkali.jpg", sort_order: 3 },
+            ]),
       };
     }
   } catch (e) {

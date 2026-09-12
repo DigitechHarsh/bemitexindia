@@ -142,7 +142,7 @@ export default function AdminProducts() {
     setIsModalOpen(true);
   };
 
-  // Cloudinary Direct Multiple Files Upload
+  // Direct Server / Cloudinary Multiple Files Upload
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -150,31 +150,54 @@ export default function AdminProducts() {
     setIsUploading(true);
     setStatusMessage(null);
     const uploadedUrls: string[] = [];
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://bemitex.harshaicreations.com/backend/api";
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", UPLOAD_PRESET);
+      let uploaded = false;
 
+      // 1. First try Direct Hostinger Backend Upload
       try {
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+        const directFormData = new FormData();
+        directFormData.append("file", file);
+        const res = await fetch(`${apiUrl}/admin/upload.php`, {
           method: "POST",
-          body: formData,
+          body: directFormData,
         });
-
-        const data = await response.json();
-        if (data.secure_url) {
-          uploadedUrls.push(data.secure_url);
-        } else {
-          // If unsigned preset is not created in Cloudinary yet, create client preview URL
-          const localUrl = URL.createObjectURL(file);
-          uploadedUrls.push(localUrl);
+        const directData = await res.json();
+        if (directData.success && directData.url) {
+          uploadedUrls.push(directData.url);
+          uploaded = true;
         }
       } catch (err) {
-        console.error("Cloudinary upload error:", err);
-        const localUrl = URL.createObjectURL(file);
-        uploadedUrls.push(localUrl);
+        console.warn("Direct upload error, trying Cloudinary fallback:", err);
+      }
+
+      // 2. Fallback to Cloudinary if direct upload didn't succeed
+      if (!uploaded) {
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", UPLOAD_PRESET);
+
+          const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await response.json();
+          if (data.secure_url) {
+            uploadedUrls.push(data.secure_url);
+            uploaded = true;
+          }
+        } catch (err) {
+          console.error("Cloudinary upload error:", err);
+        }
+      }
+
+      // 3. Fallback placeholder if offline
+      if (!uploaded) {
+        uploadedUrls.push("/products/prod_anarkali.jpg");
       }
     }
 
@@ -182,35 +205,54 @@ export default function AdminProducts() {
     setIsUploading(false);
   };
 
-  // Cloudinary PDF Catalog Upload
+  // Direct Server / Cloudinary PDF Catalog Upload
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setIsPdfUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", UPLOAD_PRESET);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://bemitex.harshaicreations.com/backend/api";
+    let uploaded = false;
 
+    // 1. Try Direct Hostinger Backend Upload
     try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
+      const directFormData = new FormData();
+      directFormData.append("file", file);
+      const res = await fetch(`${apiUrl}/admin/upload.php`, {
         method: "POST",
-        body: formData,
+        body: directFormData,
       });
-      const data = await response.json();
-      if (data.secure_url) {
-        setCatalogPdfUrl(data.secure_url);
-      } else {
-        const localPdf = URL.createObjectURL(file);
-        setCatalogPdfUrl(localPdf);
+      const directData = await res.json();
+      if (directData.success && directData.url) {
+        setCatalogPdfUrl(directData.url);
+        uploaded = true;
       }
     } catch (err) {
-      console.error("PDF upload error:", err);
-      const localPdf = URL.createObjectURL(file);
-      setCatalogPdfUrl(localPdf);
-    } finally {
-      setIsPdfUploading(false);
+      console.warn("Direct PDF upload error:", err);
     }
+
+    // 2. Cloudinary Fallback
+    if (!uploaded) {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", UPLOAD_PRESET);
+
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        if (data.secure_url) {
+          setCatalogPdfUrl(data.secure_url);
+          uploaded = true;
+        }
+      } catch (err) {
+        console.error("PDF upload error:", err);
+      }
+    }
+
+    setIsPdfUploading(false);
   };
 
   // Add Image URL Manually

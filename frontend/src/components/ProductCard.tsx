@@ -28,11 +28,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   const isAlreadyInCart = items.some((item) => item.id === product.id);
 
   // Use placeholder if no image, and support relative public paths vs backend uploads
-  const imageUrl = product.main_image 
-    ? (product.main_image.startsWith('/') || product.main_image.startsWith('http') 
-        ? product.main_image 
-        : `https://harshaicreations.com/bemitex/backend/uploads/${product.main_image}`)
-    : "https://images.unsplash.com/photo-1583391733958-d1531119d1f5?q=80&w=600&auto=format&fit=crop";
+  const getInitialImage = () => {
+    if (!product.main_image) return "/products/prod_anarkali.jpg";
+    if (product.main_image.startsWith('/') || product.main_image.startsWith('http')) {
+      return product.main_image;
+    }
+    return `https://bemitex.harshaicreations.com/backend/uploads/${product.main_image}`;
+  };
+
+  const [imgSrc, setImgSrc] = useState<string>(getInitialImage);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,7 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       moq: product.moq || 1,
       price_per_piece: product.price_per_piece,
       category_name: product.category_name,
-      main_image: imageUrl,
+      main_image: imgSrc,
     }, product.moq || 1);
 
     setJustAdded(true);
@@ -59,11 +63,13 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       {/* Image Container */}
       <Link href={`/products/${product.slug}`} className="relative h-[300px] w-full overflow-hidden block bg-gray-100">
-        <Image
-          src={imageUrl}
+        <img
+          src={imgSrc}
           alt={product.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          onError={() => {
+            setImgSrc("/products/prod_anarkali.jpg");
+          }}
         />
         {/* MOQ Badge */}
         <div className="absolute top-3 left-3 bg-bemitex-maroon text-white text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wide shadow-md">

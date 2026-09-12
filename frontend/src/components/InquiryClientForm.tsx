@@ -8,6 +8,26 @@ import { submitInquiry } from "@/lib/api";
 export default function InquiryClientForm() {
   const searchParams = useSearchParams();
   const productInterest = searchParams.get("product") || "";
+  const itemsParam = searchParams.get("items") || "";
+
+  let initialMessage = "";
+  let initialCategory = "";
+
+  if (productInterest) {
+    initialCategory = `Product: ${productInterest}`;
+  } else if (itemsParam) {
+    try {
+      const parsedItems = JSON.parse(itemsParam);
+      if (Array.isArray(parsedItems) && parsedItems.length > 0) {
+        initialCategory = "Bulk Inquiry Cart Order";
+        initialMessage = "Hello Bemitex,\n\nI want an official wholesale proforma invoice for the following bulk items:\n" +
+          parsedItems.map((item: any, i: number) => `${i + 1}. ${item.name} - Qty: ${item.qty} pcs`).join("\n") +
+          "\n\nPlease provide GST quotation and freight estimates to my city.";
+      }
+    } catch {
+      // ignore
+    }
+  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,8 +36,8 @@ export default function InquiryClientForm() {
     business_type: "",
     city: "",
     country: "India",
-    category_interest: productInterest ? `Inquiry for product: ${productInterest}` : "",
-    message: "",
+    category_interest: initialCategory,
+    message: initialMessage,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
